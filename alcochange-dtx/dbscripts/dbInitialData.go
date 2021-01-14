@@ -28,7 +28,6 @@ func createCountry() {
 		countryID = country.ID
 		return
 	}
-
 	country = &models.Country{
 		Name:     "India",
 		Code:     "IN",
