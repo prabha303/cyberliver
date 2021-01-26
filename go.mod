@@ -9,6 +9,7 @@ require (
 	github.com/NaySoftware/go-fcm v0.0.0-20190516140123-808e978ddcd2 // indirect
 	github.com/appleboy/go-fcm v0.1.5 // indirect
 	github.com/aws/aws-sdk-go v1.35.36 // indirect
+	github.com/cpuguy83/go-md2man/v2 v2.0.0 // indirect
 	github.com/erikstmartin/go-testdb v0.0.0-20160219214506-8d10e4a1bae5 // indirect
 	github.com/getsentry/sentry-go v0.9.0 // indirect
 	github.com/go-pg/pg v8.0.6+incompatible
@@ -17,6 +18,7 @@ require (
 	github.com/julienschmidt/httprouter v1.3.0
 	github.com/justinas/alice v1.2.0 // indirect
 	github.com/kellydunn/golang-geo v0.7.0 // indirect
+	github.com/kr/pty v1.1.5 // indirect
 	github.com/kylelemons/go-gypsy v0.0.0-20160905020020-08cad365cd28 // indirect
 	github.com/lib/pq v1.6.0 // indirect
 	github.com/onsi/ginkgo v1.14.0 // indirect
@@ -24,11 +26,18 @@ require (
 	github.com/prometheus/client_golang v1.7.1 // indirect
 	github.com/robfig/cron v1.2.0 // indirect
 	github.com/rs/cors v1.7.0
+	github.com/russross/blackfriday/v2 v2.1.0 // indirect
+	github.com/satori/go.uuid v1.2.0 // indirect
 	github.com/speterson-zoll/go-haversine v0.0.0-20160308020054-b8b58e5a75f5 // indirect
-	github.com/swaggo/swag v1.6.7 // indirect
+	github.com/stretchr/objx v0.2.0 // indirect
+	github.com/swaggo/gin-swagger v1.2.0 // indirect
+	github.com/swaggo/http-swagger v1.0.0
 	github.com/tealeg/xlsx v1.0.5 // indirect
 	github.com/tomasen/realip v0.0.0-20180522021738-f0c99a92ddce // indirect
 	github.com/ziutek/mymysql v1.5.4 // indirect
+	golang.org/x/net v0.0.0-20201224014010-6772e930b67b // indirect
+	golang.org/x/text v0.3.5 // indirect
+	golang.org/x/tools v0.0.0-20210114065538-d78b04bdf963 // indirect
 	gopkg.in/alexcesaro/quotedprintable.v3 v3.0.0-20150716171945-2caba252f4dc // indirect
 	gopkg.in/gomail.v2 v2.0.0-20160411212932-81ebce5c23df // indirect
 	gopkg.in/mail.v2 v2.3.1 // indirect
