@@ -13,14 +13,16 @@ var (
 )
 
 var (
-	AppUrl           = "http://localhost"
-	Port             = 9010
-	DatabaseUsername = "postgres"
-	DatabasePassword = "postgres"
-	DatabaseName     = "cyberliver_platform"
-	DatabaseAddr     = "localhost:5432"
-	UserURL          = "http://localhost:9002"
-	ProductionMode   = false
+	AppUrl                = "http://localhost"
+	Port                  = 9010
+	DatabaseUsername      = "postgres"
+	DatabasePassword      = "postgres"
+	DatabaseName          = "cyberliver_platform"
+	DatabaseAddr          = "localhost:5432"
+	UserURL               = "http://localhost:9002"
+	ProductionMode        = false
+	MaxConnectionPoolSize = 100
+	ServiceAppName        = "AlcoChange"
 )
 
 var (

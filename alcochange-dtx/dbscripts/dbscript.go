@@ -23,6 +23,7 @@ func getModels() []interface{} {
 	return []interface{}{
 		//Application  Masters
 		&models.Country{},
+		&models.WarningLabel{},
 	}
 }
 
