@@ -24,6 +24,7 @@ func getModels() []interface{} {
 		//Application  Masters
 		&models.Country{},
 		&models.WarningLabel{},
+		&models.UserActionConfirmation{},
 	}
 }
 
