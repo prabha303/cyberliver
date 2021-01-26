@@ -43,6 +43,7 @@ func RouterConfig() (router *httprouter.Router) {
 	//indexHandlers := alice.New(recoverHandler)
 
 	setPingRoutes(router)
+	warningLabel(router)
 
 	return
 }

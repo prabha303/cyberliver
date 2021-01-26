@@ -7,6 +7,7 @@ type WarningLabel struct {
 	ID               int64     `json:"id"`
 	EuRepresentative string    `json:"euRepresentative"`
 	RefVersion       string    `json:"refVersion"`
+	Manufacturer     string    `json:"manufacturer"`
 	Logo             string    `json:"logo"`
 	WarningLink      string    `json:"warningLink"`
 	IndicationsLink  string    `json:"indicationsLink"`
