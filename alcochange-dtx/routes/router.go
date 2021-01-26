@@ -46,6 +46,7 @@ func RouterConfig() (router *httprouter.Router) {
 	warningLabel(router)
 	updateuserActionConfirmation(router)
 	termsAndPrivacy(router)
+	patientAccessCode(router)
 
 	return
 }
