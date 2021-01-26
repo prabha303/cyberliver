@@ -51,7 +51,7 @@ func RouterConfig() (router *httprouter.Router) {
 }
 
 func panicHandler(w http.ResponseWriter, r *http.Request, c interface{}) {
-	fmt.Println("(alcochange-dtx)Recovering from panic, Reason: %+v", c.(error))
+	fmt.Println("(alcochange-dtx)Recovering from panic-Reason: %+v", c.(error))
 	debug.PrintStack()
 	w.WriteHeader(http.StatusInternalServerError)
 	w.Write([]byte(c.(error).Error()))
