@@ -19,7 +19,6 @@ import (
 )
 
 func main() {
-
 	log.Println("-----------------------------------------------------------")
 	log.Println(time.Now().UTC())
 	log.Println("-------------------------------------------------------prod----", conf.ServerFlag)
