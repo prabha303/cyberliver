@@ -43,3 +43,7 @@ func InitateServerConfigurations() {
 	updateMSSubcrition()
 	ProductionMode = true
 }
+
+var (
+	WarningAndPrivacyButtonText = "I agree to the Terms & Privacy"
+)

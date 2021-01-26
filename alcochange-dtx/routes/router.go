@@ -45,6 +45,7 @@ func RouterConfig() (router *httprouter.Router) {
 	setPingRoutes(router)
 	warningLabel(router)
 	updateuserActionConfirmation(router)
+	termsAndPrivacy(router)
 
 	return
 }

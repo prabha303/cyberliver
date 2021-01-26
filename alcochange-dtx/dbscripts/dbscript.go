@@ -26,6 +26,7 @@ func getModels() []interface{} {
 		&models.Country{},
 		&models.WarningLabel{},
 		&models.UserActionConfirmation{},
+		&models.AlcoChangeTermsAndPrivacy{},
 	}
 }
 
