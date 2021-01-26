@@ -21,7 +21,7 @@ import (
 func main() {
 	log.Println("-----------------------------------------------------------")
 	log.Println(time.Now().UTC())
-	log.Println("-------------------------------------------------------prod----", conf.ServerFlag)
+	log.Println("------------------", "prod -----", conf.ServerFlag, "-----------------------")
 	log.SetFlags(log.LstdFlags | log.Lshortfile)
 	flag.BoolVar(&conf.ServerFlag, "prod", false, "prod Flag for producton mode run")
 	flag.Parse()

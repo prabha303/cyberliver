@@ -1,6 +1,7 @@
 package dbscripts
 
 import (
+	"fmt"
 	"log"
 
 	"github.com/go-pg/pg"
@@ -66,12 +67,15 @@ func DropTables(db *pg.DB) {
 	}
 }
 
-//CreateIndex indexing
 func CreateIndex(db *pg.DB) {
 	//TODO: add your indexing code here..
-	for _, i := range []string{} {
+	for _, i := range []string{
+		fmt.Sprintf("CREATE UNIQUE INDEX IF NOT EXISTS uuid_eid_unique ON %s (device_uuid, email_id)", "user_action_confirmations"),
+	} {
 		if _, err := db.Exec(i); err != nil {
 			log.Printf("Error in creating the index %s", err.Error())
+		} else {
+			log.Printf("CreateIndex success")
 		}
 	}
 }
