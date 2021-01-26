@@ -51,8 +51,8 @@ func (w *WarningLabel) GetWarniglableMessage() (*WarniglableResponse, error) {
 	warniglableResponse.IndicationsLink = response.IndicationsLink
 	warniglableResponse.Logo = response.Logo
 	warniglableResponse.Manufacturer = response.Manufacturer
-	warniglableResponse.ManufacturerDate = ""
-	warniglableResponse.UpdatedDate = ""
+	warniglableResponse.ManufacturerDate = response.ManufacturerDate.Format("2006-01-02 15:04:05")
+	warniglableResponse.UpdatedDate = response.UpdatedAt.Format("01 2006")
 	warniglableResponse.RefVersion = response.RefVersion
 	warniglableResponse.WarningLink = response.WarningLink
 	return &warniglableResponse, nil
