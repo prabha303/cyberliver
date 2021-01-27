@@ -39,7 +39,7 @@ func (u *UserActionConfirm) UserActionConfirmation(req dtos.UserActionConfirmati
 	if req.DeviceUUID != "" {
 		userAction = u.userActionDao.GetUserActionByUUID(req.DeviceUUID)
 	}
-	if userAction.ID > 0 && req.EmailID != "" {
+	if userAction.ID == 0 && req.EmailID != "" {
 		userAction = u.userActionDao.GetUserActionByEmailID(req.EmailID)
 	}
 
