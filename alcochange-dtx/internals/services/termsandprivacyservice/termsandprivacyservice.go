@@ -3,6 +3,7 @@ package termsandprivacyservice
 import (
 	"ecargoware/alcochange-dtx/conf"
 	"ecargoware/alcochange-dtx/internals/daos"
+	"ecargoware/alcochange-dtx/sentryaccounts"
 
 	"github.com/FenixAra/go-util/log"
 	"github.com/go-pg/pg"
@@ -36,6 +37,7 @@ func (tp *TermsAndPrivacy) GetTermsAndPrivacyMessage() (*TermsAndPrivacyResponse
 	response, err := tp.termsAndPrivacyDao.TermsAndPrivacyMessage()
 	if err != nil {
 		tp.l.Error("GetTermsAndPrivacyMessage Error - ", err)
+		sentryaccounts.SentryLogExceptions(err)
 		return nil, err
 	}
 

@@ -4,6 +4,7 @@ import (
 	"errors"
 
 	"ecargoware/alcochange-dtx/internals/daos"
+	"ecargoware/alcochange-dtx/sentryaccounts"
 
 	"github.com/FenixAra/go-util/log"
 	"github.com/go-pg/pg"
@@ -45,6 +46,7 @@ func (w *WarningLabel) GetWarniglableMessage() (*WarniglableResponse, error) {
 	response, err := w.warningLabelDao.WarningLabelMessage()
 	if err != nil {
 		w.l.Error("WarniglableMessage Error - ", err)
+		sentryaccounts.SentryLogExceptions(err)
 		return nil, err
 	}
 	warniglableResponse.EuRepresentative = response.EuRepresentative

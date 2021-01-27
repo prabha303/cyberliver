@@ -2,6 +2,7 @@ package daos
 
 import (
 	"ecargoware/alcochange-dtx/models"
+	"ecargoware/alcochange-dtx/sentryaccounts"
 
 	"github.com/FenixAra/go-util/log"
 	"github.com/go-pg/pg"
@@ -28,6 +29,7 @@ func (w *WarningLabel) WarningLabelMessage() (*models.WarningLabel, error) {
 	err := w.dbConn.Model(&warningLabel).Select()
 	if err != nil {
 		w.l.Error("WarningLabelMessage Error", err.Error())
+		sentryaccounts.SentryLogExceptions(err)
 		//return nil, err
 	}
 	return &warningLabel, nil

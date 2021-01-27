@@ -3,6 +3,7 @@ package daos
 import (
 	"ecargoware/alcochange-dtx/dtos"
 	"ecargoware/alcochange-dtx/models"
+	"ecargoware/alcochange-dtx/sentryaccounts"
 
 	"github.com/FenixAra/go-util/log"
 	"github.com/go-pg/pg"
@@ -30,6 +31,7 @@ func (pac *PatientAccessCode) GetPatientByAccessCode(req dtos.PatientAccessCodeR
 	patAccCodeIns := &models.PatientAccessCode{}
 	if err := pac.dbConn.Model(patAccCodeIns).Where("access_code = '%v' AND solution_type = '%v' AND is_redeemed = false", req.AccessCode, req.SolutionType).Select(); err != nil {
 		pac.l.Error("GetPatientByAccessCode Error - ", err)
+		sentryaccounts.SentryLogExceptions(err)
 		return err
 	}
 

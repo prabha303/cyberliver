@@ -16,6 +16,7 @@ import (
 	"ecargoware/alcochange-dtx/dbcon"
 	"ecargoware/alcochange-dtx/dbscripts"
 	"ecargoware/alcochange-dtx/routes"
+	"ecargoware/alcochange-dtx/sentryaccounts"
 )
 
 func main() {
@@ -33,6 +34,7 @@ func main() {
 	defer dbcon.Close()
 
 	dbscripts.InitDB()
+	sentryaccounts.InitiateSentryLog()
 
 	router := routes.RouterConfig()
 

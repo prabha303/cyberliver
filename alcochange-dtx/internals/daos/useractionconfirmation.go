@@ -2,6 +2,7 @@ package daos
 
 import (
 	"ecargoware/alcochange-dtx/models"
+	"ecargoware/alcochange-dtx/sentryaccounts"
 	"encoding/json"
 
 	"github.com/FenixAra/go-util/log"
@@ -45,6 +46,7 @@ func (u *UserActionCon) UpdateWarningLabelRead(userAction models.UserActionConfi
 	res, uptErr := u.dbConn.Model(&userAction).Column("warning_label_read", "version", "is_active", "updated_at").Where("id=?", userAction.ID).Update()
 	if uptErr != nil {
 		u.l.Errorf(" UpdateWarningLabelRead Error--", uptErr)
+		sentryaccounts.SentryLogExceptions(uptErr)
 		return uptErr
 	}
 	u.l.Debug("UpdateWarningLabelRead - ", userAction.DeviceUUID, res.RowsAffected())
@@ -55,6 +57,7 @@ func (u *UserActionCon) UpdateTermsAndPrivacyRead(userAction models.UserActionCo
 	res, uptErr := u.dbConn.Model(&userAction).Column("terms_and_privacy_read", "version", "is_active", "updated_at").Where("id=?", userAction.ID).Update()
 	if uptErr != nil {
 		u.l.Errorf(" UpdateTermsAndPrivacyRead Error--", uptErr)
+		sentryaccounts.SentryLogExceptions(uptErr)
 		return uptErr
 	}
 	u.l.Debug("UpdateTermsAndPrivacyRead - ", userAction.DeviceUUID, res.RowsAffected())
@@ -65,6 +68,7 @@ func (u *UserActionCon) UpdateAccessCodeVerified(userAction models.UserActionCon
 	res, uptErr := u.dbConn.Model(&userAction).Column("access_code_verified", "version", "is_active", "updated_at").Where("id=?", userAction.ID).Update()
 	if uptErr != nil {
 		u.l.Errorf(" UpdateAccessCodeVerified Error--", uptErr)
+		sentryaccounts.SentryLogExceptions(uptErr)
 		return uptErr
 	}
 	u.l.Debug("UpdateAccessCodeVerified - ", userAction.DeviceUUID, res.RowsAffected())
@@ -75,6 +79,7 @@ func (k *UserActionCon) CreateUserActionConfirm(userAction models.UserActionConf
 	_, insErr := k.dbConn.Model(&userAction).Insert()
 	if insErr != nil {
 		k.l.Error("CreateUserActionConfirm Error--", insErr)
+		sentryaccounts.SentryLogExceptions(insErr)
 		return nil, insErr
 	}
 	dataBytes, _ := json.Marshal(userAction)

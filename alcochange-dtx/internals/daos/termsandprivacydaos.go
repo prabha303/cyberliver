@@ -2,6 +2,7 @@ package daos
 
 import (
 	"ecargoware/alcochange-dtx/models"
+	"ecargoware/alcochange-dtx/sentryaccounts"
 
 	"github.com/FenixAra/go-util/log"
 	"github.com/go-pg/pg"
@@ -30,6 +31,7 @@ func (tp *TermsAndPrivacy) TermsAndPrivacyMessage() (*models.AlcoChangeTermsAndP
 	err := tp.dbConn.Model(&tpIns).Select()
 	if err != nil {
 		tp.l.Error("TermsAndPrivacyMessage Error", err.Error())
+		sentryaccounts.SentryLogExceptions(err)
 		// return nil, err
 	}
 	return &tpIns, nil

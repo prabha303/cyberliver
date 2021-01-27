@@ -3,6 +3,7 @@ package patientaccesscodeservice
 import (
 	"ecargoware/alcochange-dtx/dtos"
 	"ecargoware/alcochange-dtx/internals/daos"
+	"ecargoware/alcochange-dtx/sentryaccounts"
 	"errors"
 
 	"github.com/FenixAra/go-util/log"
@@ -39,6 +40,7 @@ func (pac *PatientAccessCode) VerifyPatientByAccessCode(req dtos.PatientAccessCo
 	err := pac.patientAccessCodeDao.GetPatientByAccessCode(req)
 	if err != nil {
 		pac.l.Error("VerifyPatientByAccessCode Error - ", err)
+		sentryaccounts.SentryLogExceptions(err)
 		return nil, err
 	}
 

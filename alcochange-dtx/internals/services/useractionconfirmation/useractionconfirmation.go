@@ -6,6 +6,7 @@ import (
 	"ecargoware/alcochange-dtx/dtos"
 	"ecargoware/alcochange-dtx/internals/daos"
 	"ecargoware/alcochange-dtx/models"
+	"ecargoware/alcochange-dtx/sentryaccounts"
 
 	"github.com/FenixAra/go-util/log"
 	"github.com/go-pg/pg"
@@ -52,6 +53,7 @@ func (u *UserActionConfirm) UserActionConfirmation(req dtos.UserActionConfirmati
 			errW := u.userActionDao.UpdateWarningLabelRead(*userAction)
 			if errW != nil {
 				u.l.Error("UpdateWarningLabelRead Error - ", errW)
+				sentryaccounts.SentryLogExceptions(errW)
 				return nil, errW
 			}
 		}
@@ -59,6 +61,7 @@ func (u *UserActionConfirm) UserActionConfirmation(req dtos.UserActionConfirmati
 			errT := u.userActionDao.UpdateTermsAndPrivacyRead(*userAction)
 			if errT != nil {
 				u.l.Error("UpdateTermsAndPrivacyRead Error - ", errT)
+				sentryaccounts.SentryLogExceptions(errT)
 				return nil, errT
 			}
 		}
@@ -66,6 +69,7 @@ func (u *UserActionConfirm) UserActionConfirmation(req dtos.UserActionConfirmati
 			errA := u.userActionDao.UpdateAccessCodeVerified(*userAction)
 			if errA != nil {
 				u.l.Error("UpdateAccessCodeVerified Error - ", errA)
+				sentryaccounts.SentryLogExceptions(errA)
 				return nil, errA
 			}
 		}
@@ -79,6 +83,7 @@ func (u *UserActionConfirm) UserActionConfirmation(req dtos.UserActionConfirmati
 		_, errT := u.userActionDao.CreateUserActionConfirm(*userAction)
 		if errT != nil {
 			u.l.Error("CreateUserActionConfirm Error - ", errT)
+			sentryaccounts.SentryLogExceptions(errT)
 			return nil, errT
 		}
 	}

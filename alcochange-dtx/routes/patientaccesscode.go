@@ -3,6 +3,7 @@ package routes
 import (
 	"ecargoware/alcochange-dtx/dtos"
 	"ecargoware/alcochange-dtx/internals/services/patientaccesscodeservice"
+	"ecargoware/alcochange-dtx/sentryaccounts"
 	"net/http"
 
 	"github.com/julienschmidt/httprouter"
@@ -25,6 +26,7 @@ func VerifyPatientAccessCode(w http.ResponseWriter, r *http.Request, _ httproute
 	res, errW := pac.VerifyPatientByAccessCode(reqBody)
 	if errW != nil {
 		rd.l.Errorf("issue with VerifyPatientAccessCode ", errW.Error())
+		sentryaccounts.SentryLogExceptions(errW)
 		writeJSONMessage(errW.Error(), ERR_MSG, http.StatusBadRequest, rd)
 		return
 	}
