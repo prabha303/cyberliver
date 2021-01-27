@@ -46,7 +46,7 @@ func (u *UserActionConfirm) UserActionConfirmation(req dtos.UserActionConfirmati
 	if userAction.ID > 0 {
 		userAction.BeforeUpdate(req.TimeZone)
 		userAction.WarningLabelRead = req.WarningLabelRead
-		userAction.TermsAndConditionsRead = req.TermsAndPrivacyRead
+		userAction.TermsAndPrivacyRead = req.TermsAndPrivacyRead
 		userAction.AccessCodeVerified = req.AccessCodeVerified
 		if req.WarningLabelRead {
 			errW := u.userActionDao.UpdateWarningLabelRead(*userAction)
@@ -75,7 +75,7 @@ func (u *UserActionConfirm) UserActionConfirmation(req dtos.UserActionConfirmati
 		userAction.EmailID = req.EmailID
 		userAction.AccessCodeVerified = req.AccessCodeVerified
 		userAction.WarningLabelRead = req.WarningLabelRead
-		userAction.TermsAndConditionsRead = req.TermsAndPrivacyRead
+		userAction.TermsAndPrivacyRead = req.TermsAndPrivacyRead
 		_, errT := u.userActionDao.CreateUserActionConfirm(*userAction)
 		if errT != nil {
 			u.l.Error("CreateUserActionConfirm Error - ", errT)
