@@ -27,6 +27,7 @@ func getModels() []interface{} {
 		&models.WarningLabel{},
 		&models.UserActionConfirmation{},
 		&models.AlcoChangeTermsAndPrivacy{},
+		&models.PatientAccessCode{},
 	}
 }
 
