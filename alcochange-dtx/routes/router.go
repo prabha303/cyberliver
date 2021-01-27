@@ -44,7 +44,7 @@ func RouterConfig() (router *httprouter.Router) {
 
 	setPingRoutes(router)
 	warningLabel(router)
-	updateuserActionConfirmation(router)
+	updateUserActionConfirmation(router)
 	termsAndPrivacy(router)
 	patientAccessCode(router)
 

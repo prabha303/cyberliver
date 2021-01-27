@@ -2,6 +2,8 @@ package routes
 
 import (
 	"encoding/json"
+	"io"
+	"io/ioutil"
 	lg "log"
 	"net/http"
 	"net/url"
@@ -12,6 +14,7 @@ import (
 	"github.com/go-pg/pg"
 
 	"ecargoware/alcochange-dtx/dbcon"
+	"ecargoware/alcochange-dtx/errs"
 )
 
 const (
@@ -198,4 +201,27 @@ func getandConvertToInt64(query url.Values, str string) int64 {
 func getandConvertToInt(query url.Values, str string) int {
 	intData, _ := strconv.Atoi(query.Get(str))
 	return intData
+}
+
+//parseJson parse data to model
+func parseJSON(w http.ResponseWriter, body io.ReadCloser, model interface{}) bool {
+	defer body.Close()
+
+	b, _ := ioutil.ReadAll(body)
+	err := json.Unmarshal(b, model)
+
+	if err != nil {
+		e := &errs.Error{}
+		e.Message = "Error in parsing json"
+		e.Err = err
+		renderERROR(w, e)
+		return false
+	}
+
+	return true
+}
+
+func renderERROR(w http.ResponseWriter, err *errs.Error) {
+	err.Set()
+	renderJSON(w, err.Code, err)
 }

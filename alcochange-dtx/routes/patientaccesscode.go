@@ -3,8 +3,6 @@ package routes
 import (
 	"ecargoware/alcochange-dtx/dtos"
 	"ecargoware/alcochange-dtx/internals/services/patientaccesscodeservice"
-	"encoding/json"
-	"io/ioutil"
 	"net/http"
 
 	"github.com/julienschmidt/httprouter"
@@ -19,16 +17,7 @@ func VerifyPatientAccessCode(w http.ResponseWriter, r *http.Request, _ httproute
 	rd := logAndGetContext(w, r)
 
 	reqBody := dtos.PatientAccessCodeReq{}
-	body, err := ioutil.ReadAll(r.Body)
-	if err != nil {
-		rd.l.Errorf("VerifyPatientAccessCode req error: ", err.Error())
-		writeJSONMessage(err.Error(), ERR_MSG, http.StatusBadRequest, rd)
-		return
-	}
-	err = json.Unmarshal(body, &reqBody)
-	if err != nil {
-		rd.l.Errorf("VerifyPatientAccessCode unmarshal error: ", err.Error())
-		writeJSONMessage(err.Error(), ERR_MSG, http.StatusBadRequest, rd)
+	if !parseJSON(w, r.Body, &reqBody) {
 		return
 	}
 
