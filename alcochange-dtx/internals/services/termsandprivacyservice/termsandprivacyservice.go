@@ -29,6 +29,7 @@ type TermsAndPrivacyResponse struct {
 	Instructions string `json:"instructions"`
 	Contents     string `json:"contents"`
 	ButtonText   string `json:"buttonText"`
+	Logo         string `json:"logo"`
 }
 
 // GetTermsAndPrivacyMessage service for logic
@@ -45,6 +46,7 @@ func (tp *TermsAndPrivacy) GetTermsAndPrivacyMessage() (*TermsAndPrivacyResponse
 	termsAndPrivacyResponse.Instructions = response.Instructions
 	termsAndPrivacyResponse.Contents = response.Contents
 	termsAndPrivacyResponse.ButtonText = conf.WarningAndPrivacyButtonText
+	termsAndPrivacyResponse.Logo = response.Logo
 
 	return &termsAndPrivacyResponse, nil
 }

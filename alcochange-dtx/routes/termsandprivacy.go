@@ -9,7 +9,7 @@ import (
 )
 
 func termsAndPrivacy(router *httprouter.Router) {
-	router.GET("/v1/alcochange/termsAndPrivacy", GetTermsAndPrivacy)
+	router.GET("/v1/acdtx/termsAndPrivacy", GetTermsAndPrivacy)
 }
 
 // GetTermsAndPrivacy func to send the terms and privacy to the client

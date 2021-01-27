@@ -44,6 +44,8 @@ func InitateServerConfigurations() {
 	ProductionMode = true
 }
 
+// Button Text
 var (
-	WarningAndPrivacyButtonText = "I agree to the Terms & Privacy"
+	WarningAndPrivacyButtonText  = "I agree to the Terms & Privacy"
+	BaselineAssessmentButtonText = "Okay! Let's do this"
 )
