@@ -23,8 +23,8 @@ func NewUserAction(l *log.Logger, dbConn *pg.DB) *UserActionCon {
 type UserActionDao interface {
 	GetUserActionByUUID(uuid string) *models.UserActionConfirmation
 	GetUserActionByEmailID(uuid string) *models.UserActionConfirmation
-	UpdateWarningLabelRedeemed(userAction models.UserActionConfirmation) error
-	UpdateTermsAndConditionsRedeemed(userAction models.UserActionConfirmation) error
+	UpdateWarningLabelRead(userAction models.UserActionConfirmation) error
+	UpdateTermsAndPrivacyRead(userAction models.UserActionConfirmation) error
 	UpdateAccessCodeVerified(userAction models.UserActionConfirmation) error
 	CreateUserActionConfirm(userAction models.UserActionConfirmation) (*models.UserActionConfirmation, error)
 }
@@ -41,23 +41,23 @@ func (u *UserActionCon) GetUserActionByEmailID(emaiID string) *models.UserAction
 	return &userAction
 }
 
-func (u *UserActionCon) UpdateWarningLabelRedeemed(userAction models.UserActionConfirmation) error {
-	res, uptErr := u.dbConn.Model(&userAction).Column("warning_label_redeemed", "version", "is_active", "updated_at").Where("id=?", userAction.ID).Update()
+func (u *UserActionCon) UpdateWarningLabelRead(userAction models.UserActionConfirmation) error {
+	res, uptErr := u.dbConn.Model(&userAction).Column("warning_label_read", "version", "is_active", "updated_at").Where("id=?", userAction.ID).Update()
 	if uptErr != nil {
-		u.l.Errorf(" UpdateWarningLabelRedeemed Error--", uptErr)
+		u.l.Errorf(" UpdateWarningLabelRead Error--", uptErr)
 		return uptErr
 	}
-	u.l.Debug("UpdateWarningLabelRedeemed - ", userAction.DeviceUUID, res.RowsAffected())
+	u.l.Debug("UpdateWarningLabelRead - ", userAction.DeviceUUID, res.RowsAffected())
 	return nil
 }
 
-func (u *UserActionCon) UpdateTermsAndConditionsRedeemed(userAction models.UserActionConfirmation) error {
-	res, uptErr := u.dbConn.Model(&userAction).Column("terms_and_conditions_redeemed", "version", "is_active", "updated_at").Where("id=?", userAction.ID).Update()
+func (u *UserActionCon) UpdateTermsAndPrivacyRead(userAction models.UserActionConfirmation) error {
+	res, uptErr := u.dbConn.Model(&userAction).Column("terms_and_privacy_read", "version", "is_active", "updated_at").Where("id=?", userAction.ID).Update()
 	if uptErr != nil {
-		u.l.Errorf(" UpdateTermsAndConditionsRedeemed Error--", uptErr)
+		u.l.Errorf(" UpdateTermsAndPrivacyRead Error--", uptErr)
 		return uptErr
 	}
-	u.l.Debug("UpdateTermsAndConditionsRedeemed - ", userAction.DeviceUUID, res.RowsAffected())
+	u.l.Debug("UpdateTermsAndPrivacyRead - ", userAction.DeviceUUID, res.RowsAffected())
 	return nil
 }
 

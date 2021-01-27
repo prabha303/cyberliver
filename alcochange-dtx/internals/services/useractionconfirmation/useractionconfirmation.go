@@ -45,20 +45,20 @@ func (u *UserActionConfirm) UserActionConfirmation(req dtos.UserActionConfirmati
 
 	if userAction.ID > 0 {
 		userAction.BeforeUpdate(req.TimeZone)
-		userAction.WarningLabelRedeemed = req.WarningLabelRedeemed
-		userAction.TermsAndConditionsRedeemed = req.TermsAndConditionsRedeemed
+		userAction.WarningLabelRead = req.WarningLabelRead
+		userAction.TermsAndConditionsRead = req.TermsAndPrivacyRead
 		userAction.AccessCodeVerified = req.AccessCodeVerified
-		if req.WarningLabelRedeemed {
-			errW := u.userActionDao.UpdateWarningLabelRedeemed(*userAction)
+		if req.WarningLabelRead {
+			errW := u.userActionDao.UpdateWarningLabelRead(*userAction)
 			if errW != nil {
-				u.l.Error("UpdateWarningLabelRedeemed Error - ", errW)
+				u.l.Error("UpdateWarningLabelRead Error - ", errW)
 				return nil, errW
 			}
 		}
-		if req.TermsAndConditionsRedeemed {
-			errT := u.userActionDao.UpdateTermsAndConditionsRedeemed(*userAction)
+		if req.TermsAndPrivacyRead {
+			errT := u.userActionDao.UpdateTermsAndPrivacyRead(*userAction)
 			if errT != nil {
-				u.l.Error("UpdateTermsAndConditionsRedeemed Error - ", errT)
+				u.l.Error("UpdateTermsAndPrivacyRead Error - ", errT)
 				return nil, errT
 			}
 		}
@@ -74,8 +74,8 @@ func (u *UserActionConfirm) UserActionConfirmation(req dtos.UserActionConfirmati
 		userAction.DeviceUUID = req.DeviceUUID
 		userAction.EmailID = req.EmailID
 		userAction.AccessCodeVerified = req.AccessCodeVerified
-		userAction.WarningLabelRedeemed = req.WarningLabelRedeemed
-		userAction.TermsAndConditionsRedeemed = req.TermsAndConditionsRedeemed
+		userAction.WarningLabelRead = req.WarningLabelRead
+		userAction.TermsAndConditionsRead = req.TermsAndPrivacyRead
 		_, errT := u.userActionDao.CreateUserActionConfirm(*userAction)
 		if errT != nil {
 			u.l.Error("CreateUserActionConfirm Error - ", errT)
