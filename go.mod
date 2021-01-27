@@ -4,6 +4,7 @@ go 1.14
 
 require (
 	github.com/FenixAra/go-util v0.0.0-20191206092236-3fbbd91286b1
+	github.com/getsentry/sentry-go v0.9.0
 	github.com/go-pg/pg v8.0.6+incompatible
 	github.com/google/uuid v1.1.1 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
