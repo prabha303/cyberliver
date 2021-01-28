@@ -29,6 +29,10 @@ func getModels() []interface{} {
 		&models.AlcoChangeTermsAndPrivacy{},
 		&models.PatientAccessCode{},
 		&models.Constants{},
+		&models.AldHealthConditionQuestion{},
+		&models.AldHealthConditionOption{},
+		&models.AldAuditAssessmentQuestion{},
+		&models.AldAuditAssessmentOption{},
 	}
 }
 

@@ -48,6 +48,8 @@ func RouterConfig() (router *httprouter.Router) {
 	termsAndPrivacy(router)
 	patientAccessCode(router)
 	baselineAssessment(router)
+	healthConditionAssessment(router)
+	auditAssessment(router)
 
 	return
 }
