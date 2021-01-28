@@ -47,6 +47,7 @@ func RouterConfig() (router *httprouter.Router) {
 	updateUserActionConfirmation(router)
 	termsAndPrivacy(router)
 	patientAccessCode(router)
+	signINAndUp(router)
 
 	return
 }

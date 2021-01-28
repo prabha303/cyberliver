@@ -17,6 +17,9 @@ func InitDB() {
 	CreateTables(db)
 	MigrateTables(db)
 	CreateIndex(db)
+
+	createRole()
+	createProductAccess()
 }
 
 //getModels function use to get all the masters from models
@@ -28,6 +31,11 @@ func getModels() []interface{} {
 		&models.UserActionConfirmation{},
 		&models.AlcoChangeTermsAndPrivacy{},
 		&models.PatientAccessCode{},
+		&models.Role{},
+		&models.Users{},
+		&models.ProductAccess{},
+		&models.LoginDetails{},
+		&models.LoginLogs{},
 	}
 }
 
@@ -73,11 +81,68 @@ func CreateIndex(db *pg.DB) {
 	//TODO: add your indexing code here..
 	for _, i := range []string{
 		fmt.Sprintf("CREATE UNIQUE INDEX IF NOT EXISTS uuid_eid_unique ON %s (device_uuid, email_id)", "user_action_confirmations"),
+		fmt.Sprintf("CREATE UNIQUE INDEX IF NOT EXISTS idx_code_name_role ON %s (name, code)", "roles"),
+		fmt.Sprintf("CREATE UNIQUE INDEX IF NOT EXISTS idx_code_name_pa ON %s (name, code)", "product_accesses"),
 	} {
 		if _, err := db.Exec(i); err != nil {
 			log.Printf("Error in creating the index %s", err.Error())
 		} else {
-			log.Printf("CreateIndex success")
+			//log.Printf("CreateIndex success")
 		}
 	}
+}
+
+func createRole() {
+	db := dbcon.Get()
+	roles := []models.Role{
+		{
+			Name:        "patient",
+			Code:        "PATIENT",
+			Description: "Patient login",
+			IsActive:    true,
+		},
+		{
+			Name:        "Others",
+			Code:        "OTHERS",
+			Description: "Others role for user",
+			IsActive:    true,
+		},
+	}
+	for _, roleData := range roles {
+		role := &models.Role{}
+		db.Model(role).Where("LOWER(code) = LOWER(?)", &roleData.Code).Select()
+		if role.ID == 0 {
+			roleData.BeforeInsert("")
+			if _, err := db.Model(&roleData).Insert(); err != nil {
+				log.Println("Error to insert default role.", err.Error())
+				return
+			}
+			log.Println("Role created successfully.")
+		}
+	}
+
+}
+
+func createProductAccess() {
+	db := dbcon.Get()
+	pAccess := []models.ProductAccess{
+		{
+			Name:     "AlcoChange ",
+			Code:     "ALCOCHANGE-DTX",
+			IsActive: true,
+		},
+	}
+	for _, accessData := range pAccess {
+		access := &models.ProductAccess{}
+		db.Model(access).Where("LOWER(code) = LOWER(?)", &accessData.Code).Select()
+		if access.ID == 0 {
+			accessData.BeforeInsert("")
+			if _, err := db.Model(&accessData).Insert(); err != nil {
+				log.Println("Error to insert default ProductAccess.", err.Error())
+				return
+			}
+			log.Println("ProductAccess created successfully.")
+		}
+	}
+
 }

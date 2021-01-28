@@ -14,13 +14,12 @@ func updateUserActionConfirmation(router *httprouter.Router) {
 
 func UpdateUserActionConfirmation(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	rd := logAndGetContext(w, r)
-	ua := useractionconfirmation.NewUserActionConfirm(rd.l, rd.dbConn)
 	reqBody := dtos.UserActionConfirmationReq{}
-
 	if !parseJSON(w, r.Body, &reqBody) {
 		return
 	}
 
+	ua := useractionconfirmation.NewUserActionConfirm(rd.l, rd.dbConn)
 	res, errW := ua.UserActionConfirmation(reqBody)
 	if errW != nil {
 		rd.l.Errorf("issue with GetWarningLabel ", errW.Error())
