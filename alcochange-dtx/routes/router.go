@@ -51,6 +51,7 @@ func RouterConfig() (router *httprouter.Router) {
 	healthConditionAssessment(router)
 	auditAssessment(router)
 	goalSettingAssessment(router)
+	reasonAssessment(router)
 
 	return
 }
