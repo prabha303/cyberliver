@@ -52,6 +52,7 @@ func RouterConfig() (router *httprouter.Router) {
 	auditAssessment(router)
 	goalSettingAssessment(router)
 	reasonAssessment(router)
+	copingStrategyAssessment(router)
 
 	return
 }

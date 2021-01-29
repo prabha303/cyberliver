@@ -37,6 +37,8 @@ func getModels() []interface{} {
 		&models.AldGoalSettingAssessmentOption{},
 		&models.AldReasonAssessmentQuestion{},
 		&models.AldReasonAssessmentOption{},
+		&models.AldCopingStrategyAssessmentQuestion{},
+		&models.AldCopingStrategyAssessmentOption{},
 	}
 }
 

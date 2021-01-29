@@ -1,0 +1,65 @@
+package copingStrategyAssessmentService
+
+import (
+	"ecargoware/alcochange-dtx/dtos"
+	"ecargoware/alcochange-dtx/internals/daos"
+	"ecargoware/alcochange-dtx/sentryaccounts"
+
+	"github.com/FenixAra/go-util/log"
+	"github.com/go-pg/pg"
+)
+
+type CopingStrategyAssessment struct {
+	dbConn                      *pg.DB
+	l                           *log.Logger
+	copingStrategyAssessmentDao daos.CopingStrategyAssessmentDao
+}
+
+func NewCopingStrategyAssessment(l *log.Logger, dbConn *pg.DB) *CopingStrategyAssessment {
+	return &CopingStrategyAssessment{
+		l:                           l,
+		dbConn:                      dbConn,
+		copingStrategyAssessmentDao: daos.NewCopingStrategyAssessmentDB(l, dbConn),
+	}
+}
+
+// GetCopingStrategyAssessmentMessage service for logic
+func (cs *CopingStrategyAssessment) GetCopingStrategyAssessmentMessage() (*dtos.CopingStrategyAssessmentResponse, error) {
+	csIns := dtos.CopingStrategyAssessmentResponse{}
+	options := dtos.CopingStrategyAssessmentOption{}
+
+	copingStrategyQuestionResponse, err := cs.copingStrategyAssessmentDao.CopingStrategyAssessmentQuestion()
+	if err != nil {
+		cs.l.Error("GetCopingStrategyAssessmentMessage Error - ", err)
+		sentryaccounts.SentryLogExceptions(err)
+		return nil, err
+	}
+
+	for _, csQuestion := range copingStrategyQuestionResponse {
+
+		csIns.ID = csQuestion.ID
+		csIns.Question = csQuestion.Question
+		csIns.QuestionNo = csQuestion.QuestionNo
+		csIns.OptionType = csQuestion.OptionType
+		csIns.OptionTypeLabel = csQuestion.OptionTypeLabel
+		csIns.SequenceOrder = csQuestion.SequenceOrder
+
+		csOptionResponse, err := cs.copingStrategyAssessmentDao.CopingStrategyAssessmentOption(csQuestion.ID)
+		if err != nil {
+			cs.l.Error("GetCopingStrategyAssessmentMessage Error - ", err)
+			sentryaccounts.SentryLogExceptions(err)
+			return nil, err
+		}
+
+		for _, csOption := range csOptionResponse {
+			options.ID = csOption.ID
+			options.Name = csOption.Name
+			options.Points = csOption.Points
+			options.QuestionID = csOption.AldCopingStrategyAssessmentQuestionID
+			options.SequenceOrder = csOption.SequenceOrder
+			csIns.Options = append(csIns.Options, options)
+		}
+	}
+
+	return &csIns, nil
+}
