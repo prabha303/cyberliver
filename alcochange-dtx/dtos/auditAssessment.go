@@ -7,6 +7,7 @@ type AuditAssessmentResponse struct {
 	OptionTypeLabel string                  `json:"optionTypeLabel"`
 	Question        string                  `json:"question"`
 	QuestionNo      int                     `json:"questionNo"`
+	SequenceOrder   int                     `json:"sequenceOrder"`
 	Options         []AuditAssessmentOption `json:"options"`
 }
 

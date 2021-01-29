@@ -7,12 +7,14 @@ type HealthConditionAssessmentResponse struct {
 	OptionTypeLabel string                            `json:"optionTypeLabel"`
 	Question        string                            `json:"question"`
 	QuestionNo      int                               `json:"questionNo"`
+	SequenceOrder   int                               `json:"sequenceOrder"`
 	Options         []HealthConditionAssessmentOption `json:"options"`
 }
 
 type HealthConditionAssessmentOption struct {
-	ID         int64  `json:"id"`
-	QuestionID int64  `json:"questionId"`
-	Name       string `json:"name"`
-	Points     int    `json:"points"`
+	ID            int64  `json:"id"`
+	QuestionID    int64  `json:"questionId"`
+	Name          string `json:"name"`
+	Points        int    `json:"points"`
+	SequenceOrder int    `json:"sequenceOrder"`
 }

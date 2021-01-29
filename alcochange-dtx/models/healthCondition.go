@@ -8,6 +8,7 @@ type AldHealthConditionQuestion struct {
 	QuestionNo      int       `json:"questionNo"`
 	OptionType      string    `json:"optionType"`
 	OptionTypeLabel string    `json:"optionTypeLabel"`
+	SequenceOrder   int       `json:"sequenceOrder"`
 	Version         int64     `json:"version"`
 	IsActive        bool      `json:"isActive"`
 	CreatedAt       time.Time `json:"createdAt" sql:",default:now()"`
@@ -20,6 +21,7 @@ type AldHealthConditionOption struct {
 	Points                       int                         `json:"points"`
 	AldHealthConditionQuestionID int64                       `json:"aldHealthConditionQuestionID" validate:"required" sql:",notnull"`
 	AldHealthConditionQuestion   *AldHealthConditionQuestion `json:"aldHealthConditionQuestion" pg:"joinFK:id"`
+	SequenceOrder                int                         `json:"sequenceOrder"`
 	Version                      int64                       `json:"version"`
 	IsActive                     bool                        `json:"isActive"`
 	CreatedAt                    time.Time                   `json:"createdAt" sql:",default:now()"`

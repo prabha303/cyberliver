@@ -50,6 +50,7 @@ func RouterConfig() (router *httprouter.Router) {
 	baselineAssessment(router)
 	healthConditionAssessment(router)
 	auditAssessment(router)
+	goalSettingAssessment(router)
 
 	return
 }

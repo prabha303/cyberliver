@@ -42,6 +42,7 @@ func (a *AuditAssessment) GetAuditAssessmentMessage() (*dtos.AuditAssessmentResp
 		auditIns.QuestionNo = auditQuestion.QuestionNo
 		auditIns.OptionType = auditQuestion.OptionType
 		auditIns.OptionTypeLabel = auditQuestion.OptionTypeLabel
+		auditIns.SequenceOrder = auditQuestion.SequenceOrder
 
 		auditOptionResponse, err := a.auditAssessmentDao.AuditAssessmentOption(auditIns.ID)
 		if err != nil {
