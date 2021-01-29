@@ -225,3 +225,17 @@ func renderERROR(w http.ResponseWriter, err *errs.Error) {
 	err.Set()
 	renderJSON(w, err.Code, err)
 }
+
+func parseJSONWithError(w http.ResponseWriter, body io.ReadCloser, model interface{}) (bool, error) {
+	defer body.Close()
+	b, _ := ioutil.ReadAll(body)
+	err := json.Unmarshal(b, model)
+	if err != nil {
+		e := &errs.Error{}
+		e.Message = "Error in parsing json"
+		e.Err = err
+		renderERROR(w, e)
+		return false, err
+	}
+	return true, nil
+}

@@ -3,25 +3,27 @@ package dtos
 type SignUpRequest struct {
 	CountryCode         string              `json:"countryCode"`
 	Timezone            string              `json:"timezone"`
-	Lang                string              `json:"Lang"`
+	Lang                string              `json:"lang"`
 	RegisterUserRequest RegisterUserRequest `json:"registerUserRequest"`
 	LoginDeviceDetails  LoginDeviceDetails  `json:"loginDeviceDetails"`
 }
 
 type RegisterUserRequest struct {
-	FirstName          string  `json:"firstName"`
-	LastName           string  `json:"lastName"`
-	EmailID            string  `json:"emailID"`
-	AccessCode         string  `json:"accessCode"`
-	Password           string  `json:"password"`
-	Gender             string  `json:"gender"`
-	TermsAndConditions int     `json:"termsAndConditions"`
-	SignupMethod       string  `json:"signupMethod"`
-	SolutionType       string  `json:"solutionType"`
-	DOB                string  `json:"dob"`
-	Latitude           float32 `json:"latitude"`
-	Longitude          float32 `json:"longitude"`
-	AppID              string  `json:"appID"`
+	FirstName  string `json:"firstName"`
+	LastName   string `json:"lastName"`
+	EmailID    string `json:"emailID"`
+	AccessCode string `json:"accessCode"`
+	Password   string `json:"password"`
+	Gender     string `json:"gender"`
+	//TermsAndConditions int     `json:"termsAndConditions"`
+	SolutionType     string  `json:"solutionType"`
+	DOB              string  `json:"dob"`
+	Latitude         float32 `json:"latitude"`
+	Longitude        float32 `json:"longitude"`
+	AppID            string  `json:"appID"`
+	LoggedSrc        string  `json:"loggedSrc"`
+	SignUpFor        string  `json:"signUpFor"`
+	ProductAccessFor string  `json:"productAccessFor"`
 }
 type LoginDeviceDetails struct {
 	OsVersion   string `json:"osVersion"`

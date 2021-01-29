@@ -11,8 +11,8 @@ type ProductAccess struct {
 	Code      string    `json:"code" sql:",notnull,unique=idx_code_name_pa"`
 	Version   int64     `json:"version" sql:",notnull,default:0"`
 	IsActive  bool      `json:"isActive" sql:",notnull,default:false"`
-	CreatedAt time.Time `json:"createdAt" sql:",notnull"`
-	UpdatedAt time.Time `json:"updatedAt" sql:",notnull"`
+	CreatedAt time.Time `json:"createdAt" sql:",default:now()"`
+	UpdatedAt time.Time `json:"updatedAt" sql:",default:now()"`
 }
 
 func (r *ProductAccess) BeforeInsert(zone string) {

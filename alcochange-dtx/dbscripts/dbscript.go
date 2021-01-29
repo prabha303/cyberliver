@@ -36,6 +36,7 @@ func getModels() []interface{} {
 		&models.ProductAccess{},
 		&models.LoginDetails{},
 		&models.LoginLogs{},
+		&models.UserAccess{},
 	}
 }
 
