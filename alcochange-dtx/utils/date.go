@@ -75,8 +75,10 @@ func CurrentTimeWithZone(zone string) (time.Time, error) {
 	}
 	loc, err := time.LoadLocation(zone)
 	if err != nil {
+		log.Print("time.LoadLocation- ", err)
 		loc, err = time.LoadLocation("Asia/Kolkata")
 		if err != nil {
+			log.Print("time.LoadLocation Asia - ", err)
 			return time.Now(), err
 		}
 	}

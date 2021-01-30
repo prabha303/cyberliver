@@ -54,6 +54,7 @@ func RouterConfig() (router *httprouter.Router) {
 	reasonAssessment(router)
 	copingStrategyAssessment(router)
 	supportiveContact(router)
+	signINAndUp(router)
 
 	return
 }
