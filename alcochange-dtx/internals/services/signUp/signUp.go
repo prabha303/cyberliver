@@ -132,8 +132,9 @@ func (sp *SignUp) UserSignUp(signReq dtos.SignUpRequest) (*dtos.SignUpResponse, 
 	signUp.DeviceUUID = user.DeviceUUID
 	signUp.FirstName = user.FirstName
 	signUp.LastName = user.LastName
-	signUp.JoinedDate = ""
+	signUp.JoinedDate = user.JoinedDate.Format("2006-01-02 15:04")
 	signUp.TokenID = ""
+	signUp.DisplayName = user.FirstName + " " + user.LastName
 	signUp.Email = user.EmailID
 
 	return &signUp, nil
@@ -199,5 +200,6 @@ func (login *SignUp) UserLogin(signReq dtos.SignInRequest) (*dtos.SignInResponse
 	go login.signUpDao.CreateLoginLog(loginLogs)
 
 	response.EmailID = userAccess.EmailID
+	response.Message = "Logged in successfully"
 	return &response, nil
 }

@@ -25,7 +25,7 @@ func main() {
 	log.Println("-----------------------------------------------------------")
 	log.Println(time.Now().UTC())
 
-	var configFile = flag.String("conf", "conf/dev.json", "configuration file(mandatory)")
+	var configFile = flag.String("conf", "", "configuration file(mandatory)")
 
 	flag.Parse()
 	if flag.NFlag() != 1 {

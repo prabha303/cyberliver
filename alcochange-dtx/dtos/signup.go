@@ -58,8 +58,6 @@ type SignInRequest struct {
 }
 
 type SignInResponse struct {
-	Timezone         string `json:"timezone"`
-	ProductAccessFor string `json:"productAccessFor"`
-	EmailID          string `json:"emailID"`
-	Password         string `json:"password"`
+	EmailID string `json:"emailID"`
+	Message string `json:"message"`
 }
