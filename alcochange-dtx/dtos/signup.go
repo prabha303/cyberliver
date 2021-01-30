@@ -44,6 +44,7 @@ type SignUpResponse struct {
 	LoggedSrc   string `json:"loggedSrc"`
 	AccessToken string `json:"accessToken"`
 	Email       string `json:"email"`
+	Message     string `json:"message"`
 }
 
 type SignInRequest struct {

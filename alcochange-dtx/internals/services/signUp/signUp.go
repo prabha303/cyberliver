@@ -135,7 +135,7 @@ func (sp *SignUp) UserSignUp(signReq dtos.SignUpRequest) (*dtos.SignUpResponse, 
 	signUp.JoinedDate = user.JoinedDate.Format(layOut)
 	signUp.DisplayName = user.FirstName + " " + user.LastName
 	signUp.Email = user.EmailID
-
+	signUp.Message = "Signedup successfully"
 	return &signUp, nil
 }
 
@@ -161,13 +161,11 @@ func (login *SignUp) UserLogin(signReq dtos.SignInRequest) (*dtos.SignInResponse
 	userAccess.BeforeUpdate(signReq.Timezone)
 
 	go login.signUpDao.UpdateUserAccess(*userAccess)
-
 	userLoginDetails, errD := login.signUpDao.GetLoginDeviceDetails(userAccess.UserID)
 	if errD != nil {
 		login.l.Error("GetLoginDeviceDetails Login Error-", errD)
 		return nil, errD
 	}
-
 	if userLoginDetails.ID > 0 {
 		login.l.Error("userLoginDetails.ID-", userLoginDetails.ID, userLoginDetails.UserID)
 		userLoginDetails.AppID = signReq.AppID
