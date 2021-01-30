@@ -15,12 +15,12 @@ var db *pg.DB
 //Connect database
 func Connect() {
 	dbCon := pg.Connect(&pg.Options{
-		Addr:            conf.DatabaseAddr,
-		User:            conf.DatabaseUsername,
-		Password:        conf.DatabasePassword,
-		Database:        conf.DatabaseName,
-		PoolSize:        conf.MaxConnectionPoolSize,
-		ApplicationName: conf.ServiceAppName,
+		Addr:            conf.Cfg.DB_ADDRESS,
+		User:            conf.Cfg.DB_USERNAME,
+		Password:        conf.Cfg.DB_PASSWORD,
+		Database:        conf.Cfg.DB_NAME,
+		PoolSize:        conf.Cfg.Max_Connection_Pool_Size,
+		ApplicationName: conf.Cfg.APP_NAME,
 	})
 
 	db = dbCon
@@ -34,26 +34,6 @@ func Connect() {
 	}
 
 	db.AddQueryHook(dbLogger{})
-	// isProfile := true
-	// if isProfile {
-	// 	db.OnQueryProcessed(func(event *pg.QueryEvent) {
-	// 		query, err := event.FormattedQuery()
-	// 		if err != nil {
-	// 			panic(err)
-	// 		}
-	// 		log.Printf("\033[35m%s %s\033[39m\n\n", time.Since(event.StartTime), query)
-	// 	})
-	// }
-
-	// if isProfile {
-	// 	db.OnQueryProcessed(func(event *pg.QueryProcessedEvent) {
-	// 		query, err := event.FormattedQuery()
-	// 		if err != nil {
-	// 			panic(err)
-	// 		}
-	// 		log.Printf("\033[35m%s %s\033[39m\n\n", time.Since(event.StartTime), query)
-	// 	})
-	// }
 }
 
 //Get db connection
@@ -70,17 +50,6 @@ func Close() {
 	}
 	log.Printf("DB closed")
 }
-
-// type dbLogger struct{}
-
-// func (d dbLogger) BeforeQuery(c context.Context, q *pg.QueryEvent) (context.Context, error) {
-// 	return c, nil
-// }
-
-// func (d dbLogger) AfterQuery(c context.Context, q *pg.QueryEvent) error {
-// 	fmt.Println(q.FormattedQuery())
-// 	return nil
-// }
 
 type dbLogger struct{}
 

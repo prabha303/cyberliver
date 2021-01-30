@@ -5,42 +5,24 @@ var (
 )
 
 var (
-	//MSSubscriptionKey = "dbd9d1a29eb74da09e91c6e36d1f18cb"
-	//MSBaseURL         = "https://facetrack.cognitiveservices.azure.com/face/v1.0"
-	MSSubscriptionKey = "1e9ec381a31244498ed0f5319c631954"
-	MSBaseURL         = "https://facetrackstaging.cognitiveservices.azure.com/face/v1.0"
-	MSPersonsGroupURL = MSBaseURL + "/persongroups/"
-)
-
-var (
 	AppUrl                = "http://localhost"
 	Port                  = 9010
-	DatabaseUsername      = "postgres"
-	DatabasePassword      = "postgres"
+	DatabaseUsername      = "alcochange"
+	DatabasePassword      = "alco$2021$cha01ge"
 	DatabaseName          = "cyberliver_platform"
-	DatabaseAddr          = "localhost:5432"
-	UserURL               = "http://localhost:9002"
+	DatabaseAddr          = "alcochange.cgdbfirlicf1.eu-west-2.rds.amazonaws.com:5432"
 	ProductionMode        = false
 	MaxConnectionPoolSize = 100
 	ServiceAppName        = "AlcoChange"
 )
 
-var (
-	PaginationLimit = 5
-)
-
-func updateDBPassword() {
-	DatabasePassword = "tranzopostgres"
-}
-
-func updateMSSubcrition() {
-	MSSubscriptionKey = "dbd9d1a29eb74da09e91c6e36d1f18cb"
-	MSBaseURL = "https://facetrack.cognitiveservices.azure.com/face/v1.0"
-}
+// uncomment when production server is available
+// func updateDBPassword() {
+// 	DatabasePassword = "tranzopostgres"
+// }
 
 func InitateServerConfigurations() {
-	updateDBPassword()
-	updateMSSubcrition()
+	// updateDBPassword()
 	ProductionMode = true
 }
 
