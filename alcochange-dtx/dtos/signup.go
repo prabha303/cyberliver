@@ -9,13 +9,12 @@ type SignUpRequest struct {
 }
 
 type RegisterUserRequest struct {
-	FirstName  string `json:"firstName"`
-	LastName   string `json:"lastName"`
-	EmailID    string `json:"emailID"`
-	AccessCode string `json:"accessCode"`
-	Password   string `json:"password"`
-	Gender     string `json:"gender"`
-	//TermsAndConditions int     `json:"termsAndConditions"`
+	FirstName        string  `json:"firstName"`
+	LastName         string  `json:"lastName"`
+	EmailID          string  `json:"emailID"`
+	AccessCode       string  `json:"accessCode"`
+	Password         string  `json:"password"`
+	Gender           string  `json:"gender"`
 	SolutionType     string  `json:"solutionType"`
 	DOB              string  `json:"dob"`
 	Latitude         float32 `json:"latitude"`
@@ -26,11 +25,12 @@ type RegisterUserRequest struct {
 	ProductAccessFor string  `json:"productAccessFor"`
 }
 type LoginDeviceDetails struct {
-	OsVersion   string `json:"osVersion"`
-	OsType      string `json:"OsType"`
-	DeviceUUID  string `json:"deviceUUID"`
-	DeviceInfo  string `json:"deviceInfo"`
-	NetworkInfo string `json:"networkInfo"`
+	UserAppVersion int64  `json:"userAppVersion"`
+	OsVersion      string `json:"osVersion"`
+	OsType         string `json:"OsType"`
+	DeviceUUID     string `json:"deviceUUID"`
+	DeviceInfo     string `json:"deviceInfo"`
+	NetworkInfo    string `json:"networkInfo"`
 }
 
 type SignUpResponse struct {
@@ -44,4 +44,22 @@ type SignUpResponse struct {
 	LoggedSrc   string `json:"loggedSrc"`
 	AccessToken string `json:"accessToken"`
 	Email       string `json:"email"`
+}
+
+type SignInRequest struct {
+	Timezone           string             `json:"timezone"`
+	ProductAccessFor   string             `json:"productAccessFor"`
+	EmailID            string             `json:"emailID"`
+	Password           string             `json:"password"`
+	AppID              string             `json:"appID"`
+	Latitude           float32            `json:"latitude"`
+	Longitude          float32            `json:"longitude"`
+	LoginDeviceDetails LoginDeviceDetails `json:"loginDeviceDetails"`
+}
+
+type SignInResponse struct {
+	Timezone         string `json:"timezone"`
+	ProductAccessFor string `json:"productAccessFor"`
+	EmailID          string `json:"emailID"`
+	Password         string `json:"password"`
 }

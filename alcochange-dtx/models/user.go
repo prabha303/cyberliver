@@ -6,8 +6,7 @@ import (
 	"time"
 )
 
-//Users Fields
-type Users struct {
+type User struct {
 	ID                int64     `json:"id"`
 	FirstName         string    `json:"firstName" validate:"required,min=3,max=50" sql:",notnull"`
 	MiddleName        string    `json:"middleName" validate:"max=25"`
@@ -20,12 +19,12 @@ type Users struct {
 	Gender            string    `json:"gender" sql:",notnull"`
 	JoinedDate        time.Time `json:"joinedDate" sql:",notnull"`
 	SocialID          string    `json:"socialID"`
-	UUID              string    `json:"uuid" sql:",notnull"`
+	DeviceUUID        string    `json:"deviceUUID" sql:",notnull"`
 	EthnicityID       int64     `json:"ethnicityID" sql:",default:0"`
 	LoggedSrc         string    `json:"loggedSrc"`
 	SolutionType      string    `json:"solutionType"`
-	RoleID            int64     `json:"roleID" sql:",notnull"`
-	Role              *Role     `json:"role" pg:"joinFK:id"`
+	UserTypeID        int64     `json:"userTypeID" sql:",notnull"`
+	UserType          *UserType `json:"role" pg:"joinFK:id"`
 	AppID             string    `json:"appID"`
 	Timezone          string    `json:"timezone"`
 	CountryMobileCode string    `json:"countryMobileCode"`
@@ -45,7 +44,7 @@ type Users struct {
 	UpdatedAt         time.Time `json:"updatedAt" sql:",default:now()"`
 }
 
-func (user *Users) BeforeInsert(zone string) {
+func (user *User) BeforeInsert(zone string) {
 	user.FirstName = utils.ToCamelCase(user.FirstName)
 	// emp.MiddleName = utils.ToCamelCase(emp.MiddleName)
 	user.LastName = utils.ToCamelCase(user.LastName)
@@ -58,7 +57,7 @@ func (user *Users) BeforeInsert(zone string) {
 	user.UpdatedAt = currentTime
 }
 
-func (user *Users) SetGender() string {
+func (user *User) SetGender() string {
 	g := strings.ToUpper(user.Gender)
 	if g == "MALE" {
 		return "Male"

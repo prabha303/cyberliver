@@ -6,7 +6,7 @@ import (
 )
 
 //Role struct
-type Role struct {
+type UserType struct {
 	ID          int64     `json:"id"`
 	Code        string    `json:"code" sql:",notnull,unique=idx_code_name_role"`
 	Name        string    `json:"name" validate:"required,min=1,max=50" sql:",notnull,unique=idx_code_name_role"`
@@ -18,7 +18,7 @@ type Role struct {
 }
 
 //BeforeInsert func
-func (r *Role) BeforeInsert(zone string) {
+func (r *UserType) BeforeInsert(zone string) {
 	currentTime, _ := utils.CurrentTimeWithZone(zone)
 	r.Name = utils.ToCamelCase(r.Name)
 	r.Version++
@@ -28,7 +28,7 @@ func (r *Role) BeforeInsert(zone string) {
 }
 
 //BeforeUpdate func
-func (r *Role) BeforeUpdate(zone string) {
+func (r *UserType) BeforeUpdate(zone string) {
 	currentTime, _ := utils.CurrentTimeWithZone(zone)
 	r.Name = utils.ToCamelCase(r.Name)
 	r.Version++

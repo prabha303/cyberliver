@@ -17,7 +17,6 @@ func InitDB() {
 	CreateTables(db)
 	MigrateTables(db)
 	CreateIndex(db)
-
 	createRole()
 	createProductAccess()
 }
@@ -26,15 +25,15 @@ func InitDB() {
 func getModels() []interface{} {
 	return []interface{}{
 		//Application  Masters
+		&models.UserType{},
+		&models.User{},
 		&models.Country{},
 		&models.WarningLabel{},
 		&models.UserActionConfirmation{},
 		&models.AlcoChangeTermsAndPrivacy{},
 		&models.PatientAccessCode{},
-		&models.Role{},
-		&models.Users{},
 		&models.ProductAccess{},
-		&models.LoginDetails{},
+		&models.LoginDeviceDetails{},
 		&models.LoginLogs{},
 		&models.UserAccess{},
 	}
@@ -81,8 +80,8 @@ func DropTables(db *pg.DB) {
 func CreateIndex(db *pg.DB) {
 	//TODO: add your indexing code here..
 	for _, i := range []string{
-		fmt.Sprintf("CREATE UNIQUE INDEX IF NOT EXISTS uuid_eid_unique ON %s (device_uuid, email_id)", "user_action_confirmations"),
-		fmt.Sprintf("CREATE UNIQUE INDEX IF NOT EXISTS idx_code_name_role ON %s (name, code)", "roles"),
+		fmt.Sprintf("CREATE UNIQUE INDEX IF NOT EXISTS uuid_eid_unique ON %s (device_uuid, user_id)", "user_action_confirmations"),
+		fmt.Sprintf("CREATE UNIQUE INDEX IF NOT EXISTS idx_code_name_role ON %s (name, code)", "user_types"),
 		fmt.Sprintf("CREATE UNIQUE INDEX IF NOT EXISTS idx_code_name_pa ON %s (name, code)", "product_accesses"),
 	} {
 		if _, err := db.Exec(i); err != nil {
@@ -95,7 +94,7 @@ func CreateIndex(db *pg.DB) {
 
 func createRole() {
 	db := dbcon.Get()
-	roles := []models.Role{
+	userTypeC := []models.UserType{
 		{
 			Name:        "patient",
 			Code:        "PATIENT",
@@ -109,16 +108,16 @@ func createRole() {
 			IsActive:    true,
 		},
 	}
-	for _, roleData := range roles {
-		role := &models.Role{}
-		db.Model(role).Where("LOWER(code) = LOWER(?)", &roleData.Code).Select()
-		if role.ID == 0 {
-			roleData.BeforeInsert("")
-			if _, err := db.Model(&roleData).Insert(); err != nil {
-				log.Println("Error to insert default role.", err.Error())
+	for _, rowData := range userTypeC {
+		userType := &models.UserType{}
+		db.Model(userType).Where("LOWER(code) = LOWER(?)", rowData.Code).Select()
+		if userType.ID == 0 {
+			rowData.BeforeInsert("")
+			if _, err := db.Model(&rowData).Insert(); err != nil {
+				log.Println("Error to insert default user_types.", err.Error())
 				return
 			}
-			log.Println("Role created successfully.")
+			log.Println("User Types created successfully.")
 		}
 	}
 

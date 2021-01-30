@@ -8,8 +8,9 @@ import (
 
 type UserAccess struct {
 	ID                  int64     `json:"id"`
-	UsersID             int64     `json:"usersID" sql:",notnull"`
-	Users               *Users    `json:"users" pg:"joinFK:id"`
+	UserID              int64     `json:"userID" sql:",notnull"`
+	User                *User     `json:"user" pg:"joinFK:id"`
+	UserTypeID          int64     `json:"userTypeID" sql:",notnull"`
 	FirstName           string    `json:"firstName" validate:"required,min=3,max=50" sql:",notnull"`
 	LastName            string    `json:"lastName" validate:"required,max=25" sql:",notnull"`
 	MobileNo            string    `json:"mobileNo" validate:"unique=mobile_no" sql:",unique"`
@@ -17,14 +18,13 @@ type UserAccess struct {
 	PatientAccessCode   string    `json:"patientAccessCode" validate:"unique=patient_access_code" sql:",unique"`
 	CountryMobileCode   string    `json:"countryMobileCode"`
 	PasswordStr         string    `json:"passwordStr,omitempty" validate:"required, min=6" sql:"-"`
-	Password            string    `json:"-" sql:",notnull"`
+	Password            string    `json:"-" validate:"required,min=3,max=50" sql:",notnull"`
 	Timezone            string    `json:"timezone"`
-	UUID                string    `json:"uuid" sql:",notnull"`
+	DeviceUUID          string    `json:"deviceUUID" sql:",notnull"`
 	AlcoChangeDtxAccess bool      `json:"alcoChangeDtxAccess" sql:",notnull,default:false"`
 	DryDayAccess        bool      `json:"drydayAccess" sql:",notnull,default:false"`
 	LastLogin           time.Time `json:"lastLogin"`
-	RoleID              int64     `json:"roleID" sql:",notnull"`
-	Role                *Role     `json:"role" pg:"joinFK:id"`
+	UserType            *UserType `json:"role" pg:"joinFK:id"`
 	Version             int64     `json:"version" sql:",notnull,default:0"`
 	IsActive            bool      `json:"isActive" sql:",notnull,default:false"`
 	CreatedAt           time.Time `json:"createdAt" sql:",default:now()"`
@@ -41,5 +41,11 @@ func (user *UserAccess) BeforeInsert(zone string) {
 	user.CreatedAt = currentTime
 	user.UpdatedAt = currentTime
 	user.LastLogin = currentTime
-
+}
+func (userAccess *UserAccess) BeforeUpdate(zone string) {
+	currentTime, _ := utils.CurrentTimeWithZone(zone)
+	userAccess.IsActive = true
+	userAccess.Version++
+	userAccess.UpdatedAt = currentTime
+	userAccess.LastLogin = currentTime
 }

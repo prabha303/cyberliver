@@ -72,7 +72,6 @@ func (u *UserActionConfirm) UserActionConfirmation(req dtos.UserActionConfirmati
 	} else {
 		userAction.BeforeInsert(req.TimeZone)
 		userAction.DeviceUUID = req.DeviceUUID
-		userAction.EmailID = req.EmailID
 		userAction.AccessCodeVerified = req.AccessCodeVerified
 		userAction.WarningLabelRedeemed = req.WarningLabelRedeemed
 		userAction.TermsAndConditionsRedeemed = req.TermsAndConditionsRedeemed

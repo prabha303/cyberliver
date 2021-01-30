@@ -8,8 +8,9 @@ import (
 
 type UserActionConfirmation struct {
 	ID                         int64     `json:"id"`
-	DeviceUUID                 string    `json:"deviceUUID" sql:",notnull"`
-	EmailID                    string    `json:"emailID"`
+	DeviceUUID                 string    `json:"deviceUUID" validate:"unique=device_uuid" sql:",unique,notnull"`
+	UserID                     int64     `json:"userID"`
+	User                       *User     `json:"user" pg:"joinFK:id"`
 	WarningLabelRedeemed       bool      `json:"warningLabelRedeemed" sql:",notnull,default:false"`
 	AccessCodeVerified         bool      `json:"accessCodeVerified" sql:",notnull,default:false"`
 	TermsAndConditionsRedeemed bool      `json:"termsAndConditionsRedeemed" sql:",notnull,default:false"`
