@@ -17,7 +17,7 @@ func InitDB() {
 	CreateTables(db)
 	MigrateTables(db)
 	CreateIndex(db)
-	createRole()
+	createUserType()
 	createProductAccess()
 }
 
@@ -92,7 +92,7 @@ func CreateIndex(db *pg.DB) {
 	}
 }
 
-func createRole() {
+func createUserType() {
 	db := dbcon.Get()
 	userTypeC := []models.UserType{
 		{
