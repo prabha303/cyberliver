@@ -125,15 +125,14 @@ func (sp *SignUp) UserSignUp(signReq dtos.SignUpRequest) (*dtos.SignUpResponse, 
 		userAccessConfirmation.BeforeUpdate(user.Timezone)
 		sp.signUpDao.UpdateUserActionConfirmation(*userAccessConfirmation)
 	}
-	//Response
 	signUp := dtos.SignUpResponse{}
 	signUp.AccessToken = ""
+	signUp.TokenID = ""
 	signUp.LoggedSrc = user.LoggedSrc
 	signUp.DeviceUUID = user.DeviceUUID
 	signUp.FirstName = user.FirstName
 	signUp.LastName = user.LastName
-	signUp.JoinedDate = user.JoinedDate.Format("2006-01-02 15:04")
-	signUp.TokenID = ""
+	signUp.JoinedDate = user.JoinedDate.Format(layOut)
 	signUp.DisplayName = user.FirstName + " " + user.LastName
 	signUp.Email = user.EmailID
 
