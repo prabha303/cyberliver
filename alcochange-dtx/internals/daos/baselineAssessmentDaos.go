@@ -1,7 +1,7 @@
 package daos
 
 import (
-	"ecargoware/alcochange-dtx/dtos"
+	"cyberliver/alcochange-dtx/dtos"
 
 	"github.com/FenixAra/go-util/log"
 	"github.com/go-pg/pg"

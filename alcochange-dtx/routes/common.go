@@ -14,8 +14,8 @@ import (
 	"github.com/FenixAra/go-util/log"
 	"github.com/go-pg/pg"
 
-	"ecargoware/alcochange-dtx/dbcon"
-	"ecargoware/alcochange-dtx/errs"
+	"cyberliver/alcochange-dtx/dbcon"
+	"cyberliver/alcochange-dtx/errs"
 )
 
 const (

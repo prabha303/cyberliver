@@ -1,7 +1,7 @@
 package sentryaccounts
 
 import (
-	"ecargoware/alcochange-dtx/conf"
+	"cyberliver/alcochange-dtx/conf"
 	"fmt"
 	"time"
 

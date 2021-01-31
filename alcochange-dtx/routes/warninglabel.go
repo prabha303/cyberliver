@@ -3,8 +3,8 @@ package routes
 import (
 	"net/http"
 
-	"ecargoware/alcochange-dtx/internals/services/warniglableservice"
-	"ecargoware/alcochange-dtx/sentryaccounts"
+	"cyberliver/alcochange-dtx/internals/services/warniglableservice"
+	"cyberliver/alcochange-dtx/sentryaccounts"
 
 	"github.com/julienschmidt/httprouter"
 )
@@ -18,7 +18,7 @@ func GetWarningLabel(w http.ResponseWriter, r *http.Request, _ httprouter.Params
 	wl := warniglableservice.NewWarning(rd.l, rd.dbConn)
 	res, errW := wl.GetWarniglableMessage()
 	if errW != nil {
-		rd.l.Errorf("issue with GetWarningLabel ", errW.Error())
+		rd.l.Errorf("issue with GetWarningLabel", errW.Error())
 		sentryaccounts.SentryLogExceptions(errW)
 		writeJSONMessage(errW.Error(), ERR_MSG, http.StatusBadRequest, rd)
 		return

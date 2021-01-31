@@ -1,9 +1,9 @@
 package termsandprivacyservice
 
 import (
-	"ecargoware/alcochange-dtx/conf"
-	"ecargoware/alcochange-dtx/internals/daos"
-	"ecargoware/alcochange-dtx/sentryaccounts"
+	"cyberliver/alcochange-dtx/conf"
+	"cyberliver/alcochange-dtx/internals/daos"
+	"cyberliver/alcochange-dtx/sentryaccounts"
 
 	"github.com/FenixAra/go-util/log"
 	"github.com/go-pg/pg"

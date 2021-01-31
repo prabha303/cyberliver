@@ -1,9 +1,9 @@
 package patientaccesscodeservice
 
 import (
-	"ecargoware/alcochange-dtx/dtos"
-	"ecargoware/alcochange-dtx/internals/daos"
-	"ecargoware/alcochange-dtx/sentryaccounts"
+	"cyberliver/alcochange-dtx/dtos"
+	"cyberliver/alcochange-dtx/internals/daos"
+	"cyberliver/alcochange-dtx/sentryaccounts"
 	"errors"
 
 	"github.com/FenixAra/go-util/log"
