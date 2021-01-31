@@ -1,8 +1,8 @@
 package routes
 
 import (
-	"ecargoware/alcochange-dtx/internals/services/reasonAssessmentService"
-	"ecargoware/alcochange-dtx/sentryaccounts"
+	"cyberliver/alcochange-dtx/internals/services/reasonAssessmentService"
+	"cyberliver/alcochange-dtx/sentryaccounts"
 
 	"net/http"
 

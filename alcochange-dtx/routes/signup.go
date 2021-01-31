@@ -1,8 +1,8 @@
 package routes
 
 import (
-	"ecargoware/alcochange-dtx/dtos"
-	"ecargoware/alcochange-dtx/internals/services/signUp"
+	"cyberliver/alcochange-dtx/dtos"
+	"cyberliver/alcochange-dtx/internals/services/signUp"
 	"net/http"
 
 	"github.com/julienschmidt/httprouter"

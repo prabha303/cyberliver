@@ -3,7 +3,7 @@ package ping
 import (
 	"errors"
 
-	"ecargoware/alcochange-dtx/internals/daos"
+	"cyberliver/alcochange-dtx/internals/daos"
 
 	"github.com/FenixAra/go-util/log"
 	"github.com/go-pg/pg"

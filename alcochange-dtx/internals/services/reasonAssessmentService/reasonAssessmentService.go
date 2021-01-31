@@ -1,9 +1,9 @@
 package reasonAssessmentService
 
 import (
-	"ecargoware/alcochange-dtx/dtos"
-	"ecargoware/alcochange-dtx/internals/daos"
-	"ecargoware/alcochange-dtx/sentryaccounts"
+	"cyberliver/alcochange-dtx/dtos"
+	"cyberliver/alcochange-dtx/internals/daos"
+	"cyberliver/alcochange-dtx/sentryaccounts"
 
 	"github.com/FenixAra/go-util/log"
 	"github.com/go-pg/pg"

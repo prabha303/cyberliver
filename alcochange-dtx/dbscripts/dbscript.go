@@ -7,8 +7,8 @@ import (
 	"github.com/go-pg/pg"
 	"github.com/go-pg/pg/orm"
 
-	"ecargoware/alcochange-dtx/dbcon"
-	"ecargoware/alcochange-dtx/models"
+	"cyberliver/alcochange-dtx/dbcon"
+	"cyberliver/alcochange-dtx/models"
 )
 
 //InitDB initialize DB

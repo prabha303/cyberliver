@@ -1,9 +1,9 @@
 package routes
 
 import (
-	"ecargoware/alcochange-dtx/dtos"
-	"ecargoware/alcochange-dtx/internals/services/patientaccesscodeservice"
-	"ecargoware/alcochange-dtx/sentryaccounts"
+	"cyberliver/alcochange-dtx/dtos"
+	"cyberliver/alcochange-dtx/internals/services/patientaccesscodeservice"
+	"cyberliver/alcochange-dtx/sentryaccounts"
 	"net/http"
 
 	"github.com/julienschmidt/httprouter"

@@ -3,7 +3,8 @@ package routes
 import (
 	"net/http"
 
-	"ecargoware/alcochange-dtx/internals/services/ping"
+	"cyberliver/alcochange-dtx/dtos"
+	"cyberliver/alcochange-dtx/internals/services/ping"
 
 	"github.com/julienschmidt/httprouter"
 )
@@ -12,7 +13,7 @@ func setPingRoutes(router *httprouter.Router) {
 	router.GET("/ping", Ping)
 }
 
-var res ResStruct
+var res dtos.ResStruct
 
 // Ping godoc
 // @Summary ping api

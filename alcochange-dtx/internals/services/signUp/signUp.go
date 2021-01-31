@@ -1,10 +1,10 @@
 package signUp
 
 import (
-	"ecargoware/alcochange-dtx/dtos"
-	"ecargoware/alcochange-dtx/internals/daos"
-	"ecargoware/alcochange-dtx/models"
-	"ecargoware/alcochange-dtx/utils"
+	"cyberliver/alcochange-dtx/dtos"
+	"cyberliver/alcochange-dtx/internals/daos"
+	"cyberliver/alcochange-dtx/models"
+	"cyberliver/alcochange-dtx/utils"
 	"errors"
 	"strings"
 

@@ -8,6 +8,8 @@ import (
 	"runtime/debug"
 
 	"github.com/julienschmidt/httprouter"
+	"github.com/rs/cors"
+	httpSwagger "github.com/swaggo/http-swagger"
 )
 
 // Prevent abnormal shutdown while panic
@@ -35,11 +37,14 @@ func wrapHandler(next http.Handler) httprouter.Handle {
 	}
 }
 
-//RouterConfig function
-func RouterConfig() (router *httprouter.Router) {
-	router = httprouter.New()
-	router.PanicHandler = panicHandler
+type TokenRes struct {
+	Exp int `json:"exp"`
+}
 
+//RouterConfig function
+func RouterConfig() http.Handler {
+	router := httprouter.New()
+	router.PanicHandler = panicHandler
 	//indexHandlers := alice.New(recoverHandler)
 
 	setPingRoutes(router)
@@ -56,7 +61,14 @@ func RouterConfig() (router *httprouter.Router) {
 	supportiveContact(router)
 	signINAndUp(router)
 
-	return
+	router.Handler("GET", "/swagger", httpSwagger.WrapHandler)
+	router.Handler("GET", "/swagger/:one", httpSwagger.WrapHandler)
+	router.Handler("GET", "/swagger/:one/:two", httpSwagger.WrapHandler)
+	router.Handler("GET", "/swagger/:one/:two/:three", httpSwagger.WrapHandler)
+	router.Handler("GET", "/swagger/:one/:two/:three/:four", httpSwagger.WrapHandler)
+	router.Handler("GET", "/swagger/:one/:two/:three/:four/:five", httpSwagger.WrapHandler)
+	handler := cors.AllowAll().Handler(router)
+	return handler
 }
 
 func panicHandler(w http.ResponseWriter, r *http.Request, c interface{}) {
