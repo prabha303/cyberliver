@@ -56,6 +56,7 @@ func RouterConfig() (router *httprouter.Router) {
 	supportiveContact(router)
 	signINAndUp(router)
 	drinkHabitAssessment(router)
+	triggerAssessment(router)
 
 	return
 }
