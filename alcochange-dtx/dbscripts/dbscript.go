@@ -19,6 +19,7 @@ func InitDB() {
 	CreateIndex(db)
 	createUserType()
 	createProductAccess()
+	createQuestionOptionType()
 }
 
 //getModels function use to get all the masters from models
@@ -47,6 +48,7 @@ func getModels() []interface{} {
 		&models.LoginDeviceDetails{},
 		&models.LoginLogs{},
 		&models.UserAccess{},
+		&models.QuestionOptionType{},
 	}
 }
 
@@ -129,6 +131,35 @@ func createUserType() {
 				return
 			}
 			log.Println("User Types created successfully.")
+		}
+	}
+
+}
+
+func createQuestionOptionType() {
+	db := dbcon.Get()
+	questionOptionIns := []models.QuestionOptionType{
+		{
+			Name:     "Radio",
+			Code:     "SINGLE",
+			IsActive: true,
+		},
+		{
+			Name:     "Checkbox",
+			Code:     "MULTIPLE",
+			IsActive: true,
+		},
+	}
+	for _, rowData := range questionOptionIns {
+		quesOptionType := &models.QuestionOptionType{}
+		db.Model(quesOptionType).Where("LOWER(code) = LOWER(?)", rowData.Code).Select()
+		if quesOptionType.ID == 0 {
+			rowData.BeforeInsert("")
+			if _, err := db.Model(&rowData).Insert(); err != nil {
+				log.Println("Error to insert default question_option_type.", err.Error())
+				return
+			}
+			log.Println("Question Option Type created successfully.")
 		}
 	}
 

@@ -38,8 +38,8 @@ func (hc *HealthConditionAssessment) GetHealthConditionAssessmentMessage() (*dto
 	hcaIns.ID = hCAQuestionQuestionResponse.ID
 	hcaIns.Question = hCAQuestionQuestionResponse.Question
 	hcaIns.QuestionNo = hCAQuestionQuestionResponse.QuestionNo
-	hcaIns.OptionType = hCAQuestionQuestionResponse.OptionType
-	hcaIns.OptionTypeLabel = hCAQuestionQuestionResponse.OptionTypeLabel
+	// hcaIns.OptionType = hCAQuestionQuestionResponse.OptionType
+	// hcaIns.OptionTypeLabel = hCAQuestionQuestionResponse.OptionTypeLabel
 	hcaIns.SequenceOrder = hCAQuestionQuestionResponse.SequenceOrder
 
 	hcaOptionResponse, err := hc.healthConditionAssessmentDao.HealthConditionAssessmentOption()

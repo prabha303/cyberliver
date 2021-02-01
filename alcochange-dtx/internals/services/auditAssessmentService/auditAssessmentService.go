@@ -40,8 +40,8 @@ func (a *AuditAssessment) GetAuditAssessmentMessage() (*dtos.AuditAssessmentResp
 		auditIns.ID = auditQuestion.ID
 		auditIns.Question = auditQuestion.Question
 		auditIns.QuestionNo = auditQuestion.QuestionNo
-		auditIns.OptionType = auditQuestion.OptionType
-		auditIns.OptionTypeLabel = auditQuestion.OptionTypeLabel
+		// auditIns.OptionType = auditQuestion.OptionType
+		// auditIns.OptionTypeLabel = auditQuestion.OptionTypeLabel
 		auditIns.SequenceOrder = auditQuestion.SequenceOrder
 
 		auditOptionResponse, err := a.auditAssessmentDao.AuditAssessmentOption(auditIns.ID)

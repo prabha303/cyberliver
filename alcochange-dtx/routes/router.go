@@ -62,6 +62,7 @@ func RouterConfig() http.Handler {
 	signINAndUp(router)
 	drinkHabitAssessment(router)
 	triggerAssessment(router)
+	saveAssessment(router)
 
 	router.Handler("GET", "/swagger", httpSwagger.WrapHandler)
 	router.Handler("GET", "/swagger/:one", httpSwagger.WrapHandler)

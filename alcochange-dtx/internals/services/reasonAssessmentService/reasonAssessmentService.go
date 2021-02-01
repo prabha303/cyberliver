@@ -38,8 +38,8 @@ func (r *ReasonAssessment) GetReasonAssessmentMessage() (*dtos.ReasonAssessmentR
 	reasonIns.ID = reasonQuestionResponse.ID
 	reasonIns.Question = reasonQuestionResponse.Question
 	reasonIns.QuestionNo = reasonQuestionResponse.QuestionNo
-	reasonIns.OptionType = reasonQuestionResponse.OptionType
-	reasonIns.OptionTypeLabel = reasonQuestionResponse.OptionTypeLabel
+	// reasonIns.OptionType = reasonQuestionResponse.OptionType
+	// reasonIns.OptionTypeLabel = reasonQuestionResponse.OptionTypeLabel
 	reasonIns.SequenceOrder = reasonQuestionResponse.SequenceOrder
 	reasonIns.HeaderNote = reasonQuestionResponse.HeaderNote
 

@@ -15,6 +15,10 @@ func healthConditionAssessment(router *httprouter.Router) {
 
 // GetHealthConditionAssessment func to send the Health Condition Assessment to the client
 func GetHealthConditionAssessment(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	// userID, isErr := controllers.GetIDFromParams(w, r, "id")
+	// if !isErr {
+	// 	return
+	// }
 	rd := logAndGetContext(w, r)
 	wl := healthConditionService.NewHealthConditionAssessment(rd.l, rd.dbConn)
 	res, errW := wl.GetHealthConditionAssessmentMessage()

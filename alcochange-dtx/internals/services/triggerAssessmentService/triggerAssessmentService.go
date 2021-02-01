@@ -40,8 +40,8 @@ func (t *TriggerAssessment) GetTriggerAssessmentMessage() (*dtos.TriggerAssessme
 		triggerIns.ID = triggerQuestion.ID
 		triggerIns.Question = triggerQuestion.Question
 		triggerIns.QuestionNo = triggerQuestion.QuestionNo
-		triggerIns.OptionType = triggerQuestion.OptionType
-		triggerIns.OptionTypeLabel = triggerQuestion.OptionTypeLabel
+		// triggerIns.OptionType = triggerQuestion.OptionType
+		// triggerIns.OptionTypeLabel = triggerQuestion.OptionTypeLabel
 		triggerIns.SequenceOrder = triggerQuestion.SequenceOrder
 
 		triggerOptionResponse, err := t.triggerAssessmentDao.TriggerAssessmentOption(triggerIns.ID)
