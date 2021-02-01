@@ -1,7 +1,7 @@
 package models
 
 import (
-	"ecargoware/alcochange-dtx/dbcon"
+	"cyberliver/alcochange-dtx/dbcon"
 	"time"
 )
 
