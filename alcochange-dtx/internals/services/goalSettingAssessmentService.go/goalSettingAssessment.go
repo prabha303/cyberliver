@@ -40,8 +40,7 @@ func (gs *GoalSettingAssessment) GetGoalSettingAssessmentMessage() (*dtos.GoalSe
 		gsIns.ID = gsQuestion.ID
 		gsIns.Question = gsQuestion.Question
 		gsIns.QuestionNo = gsQuestion.QuestionNo
-		// gsIns.OptionType = gsQuestion.OptionType
-		// gsIns.OptionTypeLabel = gsQuestion.OptionTypeLabel
+		gsIns.QuestionOptionTypeID = gsQuestion.QuestionOptionTypeID
 		gsIns.SequenceOrder = gsQuestion.SequenceOrder
 
 		gsOptionResponse, err := gs.goalSettingAssessmentDao.GoalSettingAssessmentOption(gsIns.ID)

@@ -40,8 +40,7 @@ func (cs *CopingStrategyAssessment) GetCopingStrategyAssessmentMessage() (*dtos.
 		csIns.ID = csQuestion.ID
 		csIns.Question = csQuestion.Question
 		csIns.QuestionNo = csQuestion.QuestionNo
-		// csIns.OptionType = csQuestion.OptionType
-		// csIns.OptionTypeLabel = csQuestion.OptionTypeLabel
+		csIns.QuestionOptionTypeID = csQuestion.QuestionOptionTypeID
 		csIns.SequenceOrder = csQuestion.SequenceOrder
 
 		csOptionResponse, err := cs.copingStrategyAssessmentDao.CopingStrategyAssessmentOption(csQuestion.ID)

@@ -40,8 +40,7 @@ func (da *DrinkHabitAssessment) GetDrinkHabitAssessmentMessage() (*dtos.DrinkHab
 		drinkHabitIns.ID = drinkHabitQuestion.ID
 		drinkHabitIns.Question = drinkHabitQuestion.Question
 		drinkHabitIns.QuestionNo = drinkHabitQuestion.QuestionNo
-		// drinkHabitIns.OptionType = drinkHabitQuestion.OptionType
-		// drinkHabitIns.OptionTypeLabel = drinkHabitQuestion.OptionTypeLabel
+		drinkHabitIns.QuestionOptionTypeID = drinkHabitQuestion.QuestionOptionTypeID
 		drinkHabitIns.SequenceOrder = drinkHabitQuestion.SequenceOrder
 
 		drinkHabitOptionResponse, err := da.drinkHabitAssessmentDao.DrinkHabitAssessmentOption(drinkHabitIns.ID)

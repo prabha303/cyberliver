@@ -4,14 +4,13 @@ import "time"
 
 // HealthConditionAssessmentResponse Response struct send to client
 type HealthConditionAssessmentResponse struct {
-	ID              int64                             `json:"id"`
-	OptionType      string                            `json:"optionType"`
-	OptionTypeLabel string                            `json:"optionTypeLabel"`
-	Question        string                            `json:"question"`
-	QuestionNo      int                               `json:"questionNo"`
-	SequenceOrder   int                               `json:"sequenceOrder"`
-	Options         []HealthConditionAssessmentOption `json:"options"`
-	LatestHistory   LatestHistory                     `json:"latestHistory"`
+	ID                   int64                             `json:"id"`
+	QuestionOptionTypeID int64                             `json:"questionOptionTypeId"`
+	Question             string                            `json:"question"`
+	QuestionNo           int                               `json:"questionNo"`
+	SequenceOrder        int                               `json:"sequenceOrder"`
+	Options              []HealthConditionAssessmentOption `json:"options"`
+	LatestHistory        LatestHistory                     `json:"latestHistory"`
 }
 
 type HealthConditionAssessmentOption struct {

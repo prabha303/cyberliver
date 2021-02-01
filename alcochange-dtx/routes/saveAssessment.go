@@ -20,7 +20,7 @@ func SaveAssessment(w http.ResponseWriter, r *http.Request, _ httprouter.Params)
 		writeJSONMessage(jErr.Error(), ERR_MSG, http.StatusBadRequest, rd)
 		return
 	}
-	sa := saveAssessment.NewSaveAssessment(rd.l, rd.dbConn)
+	sa := saveAssessmentService.NewSaveAssessment(rd.l, rd.dbConn)
 	res, errW := sa.SaveAssessmentDetails(reqBody)
 	if errW != nil {
 		rd.l.Errorf("SaveAssessment - Error : ", errW.Error())

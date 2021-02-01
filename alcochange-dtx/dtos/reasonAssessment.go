@@ -2,14 +2,13 @@ package dtos
 
 // ReasonAssessmentResponse Response struct send to client
 type ReasonAssessmentResponse struct {
-	ID              int64                    `json:"id"`
-	OptionType      string                   `json:"optionType"`
-	OptionTypeLabel string                   `json:"optionTypeLabel"`
-	Question        string                   `json:"question"`
-	QuestionNo      int                      `json:"questionNo"`
-	SequenceOrder   int                      `json:"sequenceOrder"`
-	HeaderNote      string                   `json:"headerNote"`
-	Options         []ReasonAssessmentOption `json:"options"`
+	ID                   int64                    `json:"id"`
+	QuestionOptionTypeID int64                    `json:"questionOptionTypeId"`
+	Question             string                   `json:"question"`
+	QuestionNo           int                      `json:"questionNo"`
+	SequenceOrder        int                      `json:"sequenceOrder"`
+	HeaderNote           string                   `json:"headerNote"`
+	Options              []ReasonAssessmentOption `json:"options"`
 }
 
 type ReasonAssessmentOption struct {
