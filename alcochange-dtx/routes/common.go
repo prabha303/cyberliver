@@ -2,7 +2,6 @@ package routes
 
 import (
 	"encoding/json"
-	"fmt"
 	"io"
 	"io/ioutil"
 	lg "log"
@@ -126,8 +125,6 @@ func writeJSONMessage(msg string, msgType string, httpCode int, rd *RequestData)
 }
 
 func writeJSONStruct(v interface{}, code int, rd *RequestData) {
-	fmt.Println("coming77777777777777")
-
 	d, err := json.Marshal(v)
 	if err != nil {
 		writeJSONMessage("Unable to marshal data. Err: "+err.Error(), ERR_MSG, http.StatusInternalServerError, rd)
@@ -137,9 +134,6 @@ func writeJSONStruct(v interface{}, code int, rd *RequestData) {
 }
 
 func writeJSONResponse(d []byte, code int, rd *RequestData) {
-
-	fmt.Println("yesss")
-
 	rd.l.LogAPIInfo(rd.r, time.Since(rd.Start).Seconds(), code)
 	if code == http.StatusInternalServerError {
 		rd.l.Info(rd.r.URL, "Status Code:", code, ", Response time:", time.Since(rd.Start), rd.r.URL, " Response:", string(d))
