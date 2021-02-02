@@ -16,3 +16,6 @@ func NewSaveAssessmentDB(l *log.Logger, dbConn *pg.DB) *SaveAssessment {
 		dbConn: dbConn,
 	}
 }
+
+type SaveAssessmentDao interface {
+}
