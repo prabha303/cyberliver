@@ -18,7 +18,8 @@ type AldHealthConditionQuestion struct {
 type AldHealthConditionOption struct {
 	ID                           int64                       `json:"id"`
 	Name                         string                      `json:"name"`
-	Points                       int                         `json:"points"`
+	Points                       float64                     `json:"points"`
+	MaxPoints                    int                         `json:"maxPoints"`
 	AldHealthConditionQuestionID int64                       `json:"aldHealthConditionQuestionID" validate:"required" sql:",notnull"`
 	AldHealthConditionQuestion   *AldHealthConditionQuestion `json:"aldHealthConditionQuestion" pg:"joinFK:id"`
 	SequenceOrder                int                         `json:"sequenceOrder"`

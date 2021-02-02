@@ -30,22 +30,16 @@ func NewPatientAccessCode(l *log.Logger, dbConn *pg.DB) *PatientAccessCode {
 }
 
 func (pac *PatientAccessCode) VerifyPatientByAccessCode(req dtos.PatientAccessCodeReq) (*dtos.PatientAccessCodeResponse, error) {
-
 	pacResIns := dtos.PatientAccessCodeResponse{}
-
 	if req.AccessCode == "" || req.SolutionType == "" {
 		return nil, errors.New("Invalid json")
 	}
-
 	err := pac.patientAccessCodeDao.GetPatientByAccessCode(req)
 	if err != nil {
 		pac.l.Error("VerifyPatientByAccessCode Error - ", err)
 		sentryaccounts.SentryLogExceptions(err)
 		return nil, err
 	}
-
 	pacResIns.Message = PatientAccessCodeSuccessMessage
-
 	return &pacResIns, nil
-
 }

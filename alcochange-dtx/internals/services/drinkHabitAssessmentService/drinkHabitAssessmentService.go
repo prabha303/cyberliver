@@ -54,6 +54,7 @@ func (da *DrinkHabitAssessment) GetDrinkHabitAssessmentMessage() (*dtos.DrinkHab
 			options.ID = drinkHabitOption.ID
 			options.Name = drinkHabitOption.Name
 			options.Points = drinkHabitOption.Points
+			options.MaxPoints = drinkHabitOption.MaxPoints
 			options.QuestionID = drinkHabitOption.AldDrinkHabitAssessmentQuestionID
 			options.SequenceOrder = drinkHabitOption.SequenceOrder
 			drinkHabitIns.Options = append(drinkHabitIns.Options, options)

@@ -54,6 +54,7 @@ func (cs *CopingStrategyAssessment) GetCopingStrategyAssessmentMessage() (*dtos.
 			options.ID = csOption.ID
 			options.Name = csOption.Name
 			options.Points = csOption.Points
+			options.MaxPoints = csOption.MaxPoints
 			options.QuestionID = csOption.AldCopingStrategyAssessmentQuestionID
 			options.SequenceOrder = csOption.SequenceOrder
 			csIns.Options = append(csIns.Options, options)

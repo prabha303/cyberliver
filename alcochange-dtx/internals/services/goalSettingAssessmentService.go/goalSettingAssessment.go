@@ -54,6 +54,7 @@ func (gs *GoalSettingAssessment) GetGoalSettingAssessmentMessage() (*dtos.GoalSe
 			options.ID = gsOption.ID
 			options.Name = gsOption.Name
 			options.Points = gsOption.Points
+			options.MaxPoints = gsOption.MaxPoints
 			options.QuestionID = gsOption.AldGoalSettingAssessmentQuestionID
 			options.SequenceOrder = gsOption.SequenceOrder
 			gsIns.Options = append(gsIns.Options, options)

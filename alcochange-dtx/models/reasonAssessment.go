@@ -19,7 +19,8 @@ type AldReasonAssessmentQuestion struct {
 type AldReasonAssessmentOption struct {
 	ID                            int64                        `json:"id"`
 	Name                          string                       `json:"name"`
-	Points                        int                          `json:"points"`
+	Points                        float64                      `json:"points"`
+	MaxPoints                     int                          `json:"maxPoints"`
 	AldReasonAssessmentQuestionID int64                        `json:"aldReasonAssessmentQuestionID" validate:"required" sql:",notnull"`
 	AldReasonAssessmentQuestion   *AldReasonAssessmentQuestion `json:"aldReasonAssessmentQuestion" pg:"joinFK:id"`
 	SequenceOrder                 int                          `json:"sequenceOrder"`

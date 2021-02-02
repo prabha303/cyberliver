@@ -18,7 +18,8 @@ type AldDrinkHabitAssessmentQuestion struct {
 type AldDrinkHabitAssessmentOption struct {
 	ID                                int64                            `json:"id"`
 	Name                              string                           `json:"name"`
-	Points                            int                              `json:"points"`
+	Points                            float64                          `json:"points"`
+	MaxPoints                         int                              `json:"maxPoints"`
 	AldDrinkHabitAssessmentQuestionID int64                            `json:"aldDrinkHabitAssessmentQuestionID" validate:"required" sql:",notnull"`
 	AldDrinkHabitAssessmentQuestion   *AldDrinkHabitAssessmentQuestion `json:"aldDrinkHabitAssessmentQuestion" pg:"joinFK:id"`
 	SequenceOrder                     int                              `json:"sequenceOrder"`

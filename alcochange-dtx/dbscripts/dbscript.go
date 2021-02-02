@@ -34,6 +34,7 @@ func getModels() []interface{} {
 		&models.AlcoChangeTermsAndPrivacy{},
 		&models.PatientAccessCode{},
 		&models.Constants{},
+		&models.QuestionOptionType{},
 		&models.AldHealthConditionQuestion{},
 		&models.AldHealthConditionOption{},
 		&models.AldAuditAssessmentQuestion{},
@@ -48,7 +49,6 @@ func getModels() []interface{} {
 		&models.LoginDeviceDetails{},
 		&models.LoginLogs{},
 		&models.UserAccess{},
-		&models.QuestionOptionType{},
 		&models.AldAuditAssessmentHeader{},
 		&models.AldAuditAssessmentLog{},
 		&models.AldHealthAssessmentHeader{},
@@ -151,6 +151,11 @@ func createQuestionOptionType() {
 		{
 			Name:     "Checkbox",
 			Code:     "MULTIPLE",
+			IsActive: true,
+		},
+		{
+			Name:     "Likert Scal",
+			Code:     "SINGLE_LIKERT`",
 			IsActive: true,
 		},
 	}

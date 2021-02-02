@@ -12,9 +12,10 @@ type ReasonAssessmentResponse struct {
 }
 
 type ReasonAssessmentOption struct {
-	ID            int64  `json:"id"`
-	QuestionID    int64  `json:"questionId"`
-	Name          string `json:"name"`
-	Points        int    `json:"points"`
-	SequenceOrder int    `json:"sequenceOrder"`
+	ID            int64   `json:"id"`
+	QuestionID    int64   `json:"questionId"`
+	Name          string  `json:"name"`
+	Points        float64 `json:"points"`
+	MaxPoints     float64 `json:"maxPoints"`
+	SequenceOrder int     `json:"sequenceOrder"`
 }

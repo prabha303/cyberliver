@@ -54,6 +54,7 @@ func (a *AuditAssessment) GetAuditAssessmentMessage() (*dtos.AuditAssessmentResp
 			options.ID = auditOption.ID
 			options.Name = auditOption.Name
 			options.Points = auditOption.Points
+			options.MaxPoints = auditOption.MaxPoints
 			options.QuestionID = auditOption.AldAuditAssessmentQuestionID
 			options.SequenceOrder = auditOption.SequenceOrder
 			auditIns.Options = append(auditIns.Options, options)

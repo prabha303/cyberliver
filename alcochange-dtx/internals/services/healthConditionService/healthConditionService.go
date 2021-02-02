@@ -52,6 +52,7 @@ func (hc *HealthConditionAssessment) GetHealthConditionAssessmentMessage() (*dto
 		options.ID = hcaOption.ID
 		options.Name = hcaOption.Name
 		options.Points = hcaOption.Points
+		options.MaxPoints = hcaOption.MaxPoints
 		options.QuestionID = hcaOption.AldHealthConditionQuestionID
 		options.SequenceOrder = hcaOption.SequenceOrder
 		hcaIns.Options = append(hcaIns.Options, options)
