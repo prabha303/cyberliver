@@ -49,6 +49,10 @@ func getModels() []interface{} {
 		&models.LoginLogs{},
 		&models.UserAccess{},
 		&models.QuestionOptionType{},
+		&models.AldAuditAssessmentHeader{},
+		&models.AldAuditAssessmentLog{},
+		&models.AldHealthAssessmentHeader{},
+		&models.AldHealthAssessmentLog{},
 	}
 }
 
