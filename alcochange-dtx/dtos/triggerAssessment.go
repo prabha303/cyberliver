@@ -11,9 +11,9 @@ type TriggerAssessmentResponse struct {
 }
 
 type TriggerAssessmentOption struct {
-	ID            int64  `json:"id"`
-	QuestionID    int64  `json:"questionId"`
-	Name          string `json:"name"`
-	Points        int    `json:"points"`
-	SequenceOrder int    `json:"sequenceOrder"`
+	ID            int64   `json:"id"`
+	QuestionID    int64   `json:"questionId"`
+	Name          string  `json:"name"`
+	Points        float64 `json:"points"`
+	SequenceOrder int     `json:"sequenceOrder"`
 }

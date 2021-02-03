@@ -12,7 +12,7 @@ type AldGoalSettingAssessmentHeader struct {
 	AldGoalSettingAssessmentQuestion   *AldGoalSettingAssessmentQuestion `json:"aldGoalSettingAssessmentQuestion" pg:"joinFK:id"`
 	AldGoalSettingAssessmentOptionID   int64                             `json:"aldGoalSettingAssessmentOptionID" validate:"required" sql:",notnull"`
 	AldGoalSettingAssessmentOption     *AldGoalSettingAssessmentOption   `json:"aldGoalSettingAssessmentOption" pg:"joinFK:id"`
-	Points                             float64                           `json:"points" sql:",notnull"`
+	Points                             float64                           `json:"points" sql:",notnull,default:0.0"`
 	AvgPonits                          float64                           `json:"avgPonits" sql:",notnull,default:0"`
 	MaxPoints                          int                               `json:"maxPoints" sql:",notnull,default:0"`
 	Version                            int64                             `json:"version"`
@@ -31,7 +31,7 @@ type AldGoalSettingAssessmentLog struct {
 	AldGoalSettingAssessmentQuestion   *AldGoalSettingAssessmentQuestion `json:"aldGoalSettingAssessmentQuestion" pg:"joinFK:id"`
 	AldGoalSettingAssessmentOptionID   int64                             `json:"aldGoalSettingAssessmentOptionID" validate:"required" sql:",notnull"`
 	AldGoalSettingAssessmentOption     *AldGoalSettingAssessmentOption   `json:"aldGoalSettingAssessmentOption" pg:"joinFK:id"`
-	Points                             float64                           `json:"points" sql:",notnull"`
+	Points                             float64                           `json:"points" sql:",notnull,default:0.0"`
 	AvgPonits                          float64                           `json:"avgPonits" sql:",notnull,default:0"`
 	MaxPoints                          int                               `json:"maxPoints" sql:",notnull,default:0"`
 	Version                            int64                             `json:"version"`

@@ -12,7 +12,7 @@ type AldAuditAssessmentHeader struct {
 	AldAuditAssessmentQuestion   *AldAuditAssessmentQuestion `json:"aldAuditAssessmentQuestion" pg:"joinFK:id"`
 	AldAuditAssessmentOptionID   int64                       `json:"aldAuditAssessmentOptionID" validate:"required" sql:",notnull"`
 	AldAuditAssessmentOption     *AldAuditAssessmentOption   `json:"aldAuditAssessmentOption" pg:"joinFK:id"`
-	Points                       float64                     `json:"points" sql:",notnull"`
+	Points                       float64                     `json:"points" sql:",notnull,default:0.0"`
 	AvgPonits                    float64                     `json:"avgPonits" sql:",notnull,default:0"`
 	MaxPoints                    int                         `json:"maxPoints" sql:",notnull,default:0"`
 	Version                      int64                       `json:"version"`
@@ -31,7 +31,7 @@ type AldAuditAssessmentLog struct {
 	AldAuditAssessmentQuestion   *AldAuditAssessmentQuestion `json:"aldAuditAssessmentQuestion" pg:"joinFK:id"`
 	AldAuditAssessmentOptionID   int64                       `json:"aldAuditAssessmentOptionID" validate:"required" sql:",notnull"`
 	AldAuditAssessmentOption     *AldAuditAssessmentOption   `json:"aldAuditAssessmentOption" pg:"joinFK:id"`
-	Points                       float64                     `json:"points" sql:",notnull"`
+	Points                       float64                     `json:"points" sql:",notnull,default:0.0"`
 	AvgPonits                    float64                     `json:"avgPonits" sql:",notnull,default:0"`
 	MaxPoints                    int                         `json:"maxPoints" sql:",notnull,default:0"`
 	Version                      int64                       `json:"version"`

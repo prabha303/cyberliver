@@ -2,7 +2,6 @@ package dbscripts
 
 import (
 	"cyberliver/alcochange-dtx/models"
-	"fmt"
 	"log"
 
 	"github.com/go-pg/pg"
@@ -109,8 +108,8 @@ func createHealthAssesmentQuestion(db *pg.DB) {
 		},
 	}
 	for _, health := range healthQuestions {
-		healthRow := models.AldHealthConditionQuestion{}
-		db.Model(healthRow).Where("id = ?", &health.ID).Select()
+		healthRow := &models.AldHealthConditionQuestion{}
+		db.Model(healthRow).Where("id = ?", health.ID).Select()
 		if healthRow.QuestionNo != 1 {
 			health.BeforeInsert("")
 			if _, err := db.Model(&health).Insert(); err != nil {
@@ -153,11 +152,9 @@ func createHealthAssesmentQuestionOptions(db *pg.DB) {
 		},
 	}
 	for _, health := range healthQuestions {
-		healthRow := []models.AldHealthConditionOption{}
-		db.Model(healthRow).Where("ald_health_condition_question_id = ? AND sequence_order = ?", &health.AldHealthConditionQuestionID, &health.SequenceOrder).Select()
-		fmt.Print("health.AldHealthConditionQuestionID, &health.SequenceOrder", health.AldHealthConditionQuestionID, &health.SequenceOrder, len(healthRow))
-
-		if len(healthRow) == 0 {
+		healthRow := models.AldHealthConditionOption{}
+		db.Model(&healthRow).Where("ald_health_condition_question_id=? AND sequence_order=?", health.AldHealthConditionQuestionID, health.SequenceOrder).Select()
+		if healthRow.ID == 0 {
 			health.BeforeInsert("")
 			if _, err := db.Model(&health).Insert(); err != nil {
 				log.Println("Error to insert default createHealthAssesmentQuestionOptions.", err.Error())

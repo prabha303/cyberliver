@@ -18,7 +18,7 @@ type AldTriggerAssessmentQuestion struct {
 type AldTriggerAssessmentOption struct {
 	ID                             int64                         `json:"id"`
 	Name                           string                        `json:"name"`
-	Points                         int                           `json:"points"`
+	Points                         float64                       `json:"points" sql:",notnull,default:0.0"`
 	AldTriggerAssessmentQuestionID int64                         `json:"aldTriggerAssessmentQuestionID" validate:"required" sql:",notnull"`
 	AldTriggerAssessmentQuestion   *AldTriggerAssessmentQuestion `json:"aldTriggerAssessmentQuestion" pg:"joinFK:id"`
 	SequenceOrder                  int                           `json:"sequenceOrder"`

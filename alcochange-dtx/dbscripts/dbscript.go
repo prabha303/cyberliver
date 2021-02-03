@@ -98,6 +98,8 @@ func CreateIndex(db *pg.DB) {
 		fmt.Sprintf("CREATE UNIQUE INDEX IF NOT EXISTS uuid_eid_unique ON %s (device_uuid, user_id)", "user_action_confirmations"),
 		fmt.Sprintf("CREATE UNIQUE INDEX IF NOT EXISTS idx_code_name_role ON %s (name, code)", "user_types"),
 		fmt.Sprintf("CREATE UNIQUE INDEX IF NOT EXISTS idx_code_name_pa ON %s (name, code)", "product_accesses"),
+		fmt.Sprintf("CREATE UNIQUE INDEX IF NOT EXISTS idx_qid_sid ON %s (ald_health_condition_question_id, sequence_order)", "ald_health_condition_options"),
+		fmt.Sprintf("CREATE UNIQUE INDEX IF NOT EXISTS idx_qid_soid_helth_q ON %s (question_no, sequence_order)", "ald_health_condition_questions"),
 	} {
 		if _, err := db.Exec(i); err != nil {
 			log.Printf("Error in creating the index %s", err.Error())
