@@ -43,7 +43,7 @@ func (s *SaveAssessment) HealthConditionAssessment(req dtos.HealthConditionAsses
 		healthConditionLog.AldHealthConditionQuestionID = assessmentHeader.AldHealthConditionQuestionID
 		healthConditionLog.AldHealthConditionOptionID = assessmentHeader.AldHealthConditionOptionID
 		healthConditionLog.Points = assessmentHeader.Points
-		healthConditionLog.AvgPonits = assessmentHeader.AvgPonits
+		healthConditionLog.AvgPoints = assessmentHeader.AvgPoints
 		healthConditionLog.MaxPoints = assessmentHeader.MaxPoints
 
 		errHealthInsertLog := s.saveAssessmentDao.SaveHealthConditionAssessmentLog(healthConditionLog)
@@ -70,7 +70,7 @@ func (s *SaveAssessment) AuditAssessment(req dtos.AuditAssessmentAnswer, userID 
 			assessmentHeader.AldAuditAssessmentOptionID = userAnswer.OptionID
 			assessmentHeader.Points = userAnswer.Points
 			assessmentHeader.MaxPoints = userAnswer.MaxPoints
-			assessmentHeader.AvgPonits = float64((userAnswer.Points / float64(userAnswer.MaxPoints)) * 100)
+			assessmentHeader.AvgPoints = float64((userAnswer.Points / float64(userAnswer.MaxPoints)) * 100)
 			errAuditUpt := s.saveAssessmentDao.UpdateAuditAssessment(assessmentHeader)
 			if errAuditUpt != nil {
 				s.l.Error("AuditAssessment Error--", errAuditUpt)
@@ -84,7 +84,7 @@ func (s *SaveAssessment) AuditAssessment(req dtos.AuditAssessmentAnswer, userID 
 			assessmentHeader.AldAuditAssessmentOptionID = userAnswer.OptionID
 			assessmentHeader.Points = userAnswer.Points
 			assessmentHeader.MaxPoints = userAnswer.MaxPoints
-			assessmentHeader.AvgPonits = float64((userAnswer.Points / float64(userAnswer.MaxPoints)) * 100)
+			assessmentHeader.AvgPoints = float64((userAnswer.Points / float64(userAnswer.MaxPoints)) * 100)
 			auditIns, errAuditInsert := s.saveAssessmentDao.SaveAuditAssessment(assessmentHeader)
 			if errAuditInsert != nil {
 				s.l.Error("AuditAssessment Error--", errAuditInsert)
@@ -98,7 +98,7 @@ func (s *SaveAssessment) AuditAssessment(req dtos.AuditAssessmentAnswer, userID 
 		auditLog.AldAuditAssessmentQuestionID = assessmentHeader.AldAuditAssessmentQuestionID
 		auditLog.AldAuditAssessmentOptionID = assessmentHeader.AldAuditAssessmentOptionID
 		auditLog.Points = assessmentHeader.Points
-		auditLog.AvgPonits = assessmentHeader.AvgPonits
+		auditLog.AvgPoints = assessmentHeader.AvgPoints
 		auditLog.MaxPoints = assessmentHeader.MaxPoints
 
 		errAuditInsertLog := s.saveAssessmentDao.SaveAuditAssessmentLog(auditLog)
@@ -125,7 +125,7 @@ func (s *SaveAssessment) GoalSettingAssessment(req dtos.GoalSettingAssessmentAns
 			assessmentHeader.AldGoalSettingAssessmentOptionID = userAnswer.OptionID
 			assessmentHeader.Points = userAnswer.Points
 			assessmentHeader.MaxPoints = userAnswer.MaxPoints
-			assessmentHeader.AvgPonits = float64((userAnswer.Points / float64(userAnswer.MaxPoints)) * 100)
+			assessmentHeader.AvgPoints = float64((userAnswer.Points / float64(userAnswer.MaxPoints)) * 100)
 			errGoalUpt := s.saveAssessmentDao.UpdateGoalSettingAssessment(assessmentHeader)
 			if errGoalUpt != nil {
 				s.l.Error("GoalSettingAssessment Error--", errGoalUpt)
@@ -139,7 +139,7 @@ func (s *SaveAssessment) GoalSettingAssessment(req dtos.GoalSettingAssessmentAns
 			assessmentHeader.AldGoalSettingAssessmentOptionID = userAnswer.OptionID
 			assessmentHeader.Points = userAnswer.Points
 			assessmentHeader.MaxPoints = userAnswer.MaxPoints
-			assessmentHeader.AvgPonits = float64((userAnswer.Points / float64(userAnswer.MaxPoints)) * 100)
+			assessmentHeader.AvgPoints = float64((userAnswer.Points / float64(userAnswer.MaxPoints)) * 100)
 			goalSettingIns, errGoalInsert := s.saveAssessmentDao.SaveGoalSettingAssessment(assessmentHeader)
 			if errGoalInsert != nil {
 				s.l.Error("GoalSettingAssessment Error--", errGoalInsert)
@@ -154,7 +154,7 @@ func (s *SaveAssessment) GoalSettingAssessment(req dtos.GoalSettingAssessmentAns
 		goalSettingLog.AldGoalSettingAssessmentQuestionID = assessmentHeader.AldGoalSettingAssessmentQuestionID
 		goalSettingLog.AldGoalSettingAssessmentOptionID = assessmentHeader.AldGoalSettingAssessmentOptionID
 		goalSettingLog.Points = assessmentHeader.Points
-		goalSettingLog.AvgPonits = assessmentHeader.AvgPonits
+		goalSettingLog.AvgPoints = assessmentHeader.AvgPoints
 		goalSettingLog.MaxPoints = assessmentHeader.MaxPoints
 
 		errGoalInsertLog := s.saveAssessmentDao.SaveGoalSettingAssessmentLog(goalSettingLog)

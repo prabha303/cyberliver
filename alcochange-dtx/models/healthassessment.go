@@ -12,8 +12,8 @@ type AldHealthAssessmentHeader struct {
 	AldHealthConditionQuestion   *AldHealthConditionQuestion `json:"aldHealthConditionQuestion" pg:"joinFK:id"`
 	AldHealthConditionOptionID   int64                       `json:"aldHealthConditionOptionID" validate:"required" sql:",notnull"`
 	AldHealthConditionOption     *AldHealthConditionOption   `json:"aldHealthConditionOption" pg:"joinFK:id"`
-	Points                       float64                     `json:"points" sql:",notnull,default:0.0"`
-	AvgPonits                    float64                     `json:"avgPonits" sql:",notnull,default:0"`
+	Points                       float64                     `json:"points" sql:",notnull,default:0"`
+	AvgPoints                    float64                     `json:"AvgPoints" sql:",notnull,default:0"`
 	MaxPoints                    int                         `json:"maxPoints" sql:",notnull,default:0"`
 	Version                      int64                       `json:"version"`
 	IsActive                     bool                        `json:"isActive"`
@@ -31,8 +31,8 @@ type AldHealthAssessmentLog struct {
 	AldHealthConditionQuestion   *AldHealthConditionQuestion `json:"aldHealthConditionQuestion" pg:"joinFK:id"`
 	AldHealthConditionOptionID   int64                       `json:"aldHealthConditionOptionID" validate:"required" sql:",notnull"`
 	AldHealthConditionOption     *AldHealthConditionOption   `json:"aldHealthConditionOption" pg:"joinFK:id"`
-	Points                       float64                     `json:"points" sql:",notnull,default:0.0"`
-	AvgPonits                    float64                     `json:"avgPonits" sql:",notnull,default:0"`
+	Points                       float64                     `json:"points" sql:",notnull,default:0"`
+	AvgPoints                    float64                     `json:"AvgPoints" sql:",notnull,default:0"`
 	MaxPoints                    int                         `json:"maxPoints" sql:",notnull,default:0"`
 	Version                      int64                       `json:"version"`
 	IsActive                     bool                        `json:"isActive"`

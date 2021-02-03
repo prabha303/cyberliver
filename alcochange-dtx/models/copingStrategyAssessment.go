@@ -18,7 +18,7 @@ type AldCopingStrategyAssessmentQuestion struct {
 type AldCopingStrategyAssessmentOption struct {
 	ID                                    int64                                `json:"id"`
 	Name                                  string                               `json:"name"`
-	Points                                float64                              `json:"points" sql:",default:0.0"`
+	Points                                float64                              `json:"points" sql:",default:0"`
 	MaxPoints                             int                                  `json:"maxPoints"`
 	AldCopingStrategyAssessmentQuestionID int64                                `json:"aldCopingStrategyAssessmentQuestionID" validate:"required" sql:",notnull"`
 	AldCopingStrategyAssessmentQuestion   *AldCopingStrategyAssessmentQuestion `json:"aldCopingStrategyAssessmentQuestion" pg:"joinFK:id"`
