@@ -26,13 +26,17 @@ type SaveAssessmentDao interface {
 	UpdateHealthConditionAssessment(healthAssessmentResp models.AldHealthAssessmentHeader) error
 	SaveHealthConditionAssessmentLog(healthAssessmentResp models.AldHealthAssessmentLog) error
 	IsExistsAuditAssessment(userID int64, questionID int64) models.AldAuditAssessmentHeader
-	SaveAuditAssessment(healthAssessmentResp models.AldAuditAssessmentHeader) (models.AldAuditAssessmentHeader, error)
-	UpdateAuditAssessment(healthAssessmentResp models.AldAuditAssessmentHeader) error
-	SaveAuditAssessmentLog(healthAssessmentResp models.AldAuditAssessmentLog) error
+	SaveAuditAssessment(auditAssessmentResp models.AldAuditAssessmentHeader) (models.AldAuditAssessmentHeader, error)
+	UpdateAuditAssessment(auditAssessmentResp models.AldAuditAssessmentHeader) error
+	SaveAuditAssessmentLog(auditAssessmentResp models.AldAuditAssessmentLog) error
 	IsExistsGoalSettingAssessment(userID int64, questionID int64) models.AldGoalSettingAssessmentHeader
 	SaveGoalSettingAssessment(goalAssessmentResp models.AldGoalSettingAssessmentHeader) (models.AldGoalSettingAssessmentHeader, error)
 	UpdateGoalSettingAssessment(goalAssessmentResp models.AldGoalSettingAssessmentHeader) error
 	SaveGoalSettingAssessmentLog(goalAssessmentResp models.AldGoalSettingAssessmentLog) error
+	IsExistsSupportiveContact(userID int64) bool
+	SaveSupportiveContact(supportiveContactResp models.AldSupportiveContactHeader) (models.AldSupportiveContactHeader, error)
+	DeleteSupportiveContact(userID int64) error
+	SaveSupportiveContactLog(supportiveContactResp models.AldSupportiveContactLog) error
 }
 
 func (s *SaveAssessment) IsExistsHealthConditionAssessment(userID int64, questionID int64) models.AldHealthAssessmentHeader {
@@ -173,6 +177,55 @@ func (s *SaveAssessment) SaveGoalSettingAssessmentLog(goalAssessmentResp models.
 	}
 
 	dataBytes, _ := json.Marshal(goalAssessmentResp)
+	s.l.Debug("User table json : %q", string(dataBytes))
+
+	return nil
+}
+
+func (s *SaveAssessment) IsExistsSupportiveContact(userID int64) bool {
+	assessmentHeader := models.AldSupportiveContactHeader{}
+	s.dbConn.Model(&assessmentHeader).Where("user_id = ?", userID).Select()
+	if assessmentHeader.ID > 0 {
+		return true
+	}
+	return false
+}
+
+func (s *SaveAssessment) SaveSupportiveContact(supportiveContactResp models.AldSupportiveContactHeader) (models.AldSupportiveContactHeader, error) {
+	_, insErr := s.dbConn.Model(&supportiveContactResp).Insert()
+
+	if insErr != nil {
+		s.l.Error("SaveSupportiveContact Error--", insErr)
+		return supportiveContactResp, insErr
+	}
+
+	dataBytes, _ := json.Marshal(supportiveContactResp)
+	s.l.Debug("User table json : %q", string(dataBytes))
+
+	return supportiveContactResp, nil
+}
+
+func (s *SaveAssessment) DeleteSupportiveContact(userID int64) error {
+	supportiveContactResp := models.AldSupportiveContactHeader{}
+	_, uptErr := s.dbConn.Model(&supportiveContactResp).Where("user_id=?", supportiveContactResp.UserID).Delete()
+	if uptErr != nil {
+		s.l.Error("DeleteSupportiveContact Error--", uptErr)
+		return uptErr
+	}
+
+	return nil
+}
+
+func (s *SaveAssessment) SaveSupportiveContactLog(supportiveContactResp models.AldSupportiveContactLog) error {
+
+	_, insErr := s.dbConn.Model(&supportiveContactResp).Insert()
+
+	if insErr != nil {
+		s.l.Error("SaveSupportiveContactLog Error--", insErr)
+		return insErr
+	}
+
+	dataBytes, _ := json.Marshal(supportiveContactResp)
 	s.l.Debug("User table json : %q", string(dataBytes))
 
 	return nil
