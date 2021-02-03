@@ -22,17 +22,17 @@ func NewSaveAssessmentDB(l *log.Logger, dbConn *pg.DB) *SaveAssessment {
 
 type SaveAssessmentDao interface {
 	IsExistsHealthConditionAssessment(userID int64, questionID int64) models.AldHealthAssessmentHeader
-	SaveHealthConditionAssessment(healthAssessmentResp models.AldHealthAssessmentHeader) error
+	SaveHealthConditionAssessment(healthAssessmentResp models.AldHealthAssessmentHeader) (models.AldHealthAssessmentHeader, error)
 	UpdateHealthConditionAssessment(healthAssessmentResp models.AldHealthAssessmentHeader) error
-	SaveHealthConditionAssessmentLog(healthAssessmentResp models.AldHealthAssessmentHeader) error
+	SaveHealthConditionAssessmentLog(healthAssessmentResp models.AldHealthAssessmentLog) error
 	IsExistsAuditAssessment(userID int64, questionID int64) models.AldAuditAssessmentHeader
-	SaveAuditAssessment(healthAssessmentResp models.AldAuditAssessmentHeader) error
+	SaveAuditAssessment(healthAssessmentResp models.AldAuditAssessmentHeader) (models.AldAuditAssessmentHeader, error)
 	UpdateAuditAssessment(healthAssessmentResp models.AldAuditAssessmentHeader) error
-	SaveAuditAssessmentLog(healthAssessmentResp models.AldAuditAssessmentHeader) error
+	SaveAuditAssessmentLog(healthAssessmentResp models.AldAuditAssessmentLog) error
 	IsExistsGoalSettingAssessment(userID int64, questionID int64) models.AldGoalSettingAssessmentHeader
-	SaveGoalSettingAssessment(goalAssessmentResp models.AldGoalSettingAssessmentHeader) error
+	SaveGoalSettingAssessment(goalAssessmentResp models.AldGoalSettingAssessmentHeader) (models.AldGoalSettingAssessmentHeader, error)
 	UpdateGoalSettingAssessment(goalAssessmentResp models.AldGoalSettingAssessmentHeader) error
-	SaveGoalSettingAssessmentLog(goalAssessmentResp models.AldGoalSettingAssessmentHeader) error
+	SaveGoalSettingAssessmentLog(goalAssessmentResp models.AldGoalSettingAssessmentLog) error
 }
 
 func (s *SaveAssessment) IsExistsHealthConditionAssessment(userID int64, questionID int64) models.AldHealthAssessmentHeader {
@@ -41,18 +41,18 @@ func (s *SaveAssessment) IsExistsHealthConditionAssessment(userID int64, questio
 	return assessmentHeader
 }
 
-func (s *SaveAssessment) SaveHealthConditionAssessment(healthAssessmentResp models.AldHealthAssessmentHeader) error {
+func (s *SaveAssessment) SaveHealthConditionAssessment(healthAssessmentResp models.AldHealthAssessmentHeader) (models.AldHealthAssessmentHeader, error) {
 	_, insErr := s.dbConn.Model(&healthAssessmentResp).Insert()
 
 	if insErr != nil {
 		s.l.Error("SaveHealthConditionAssessment Error--", insErr)
-		return insErr
+		return healthAssessmentResp, insErr
 	}
 
 	dataBytes, _ := json.Marshal(healthAssessmentResp)
 	s.l.Debug("User table json : %q", string(dataBytes))
 
-	return nil
+	return healthAssessmentResp, nil
 }
 
 func (s *SaveAssessment) UpdateHealthConditionAssessment(healthAssessmentResp models.AldHealthAssessmentHeader) error {
@@ -68,7 +68,8 @@ func (s *SaveAssessment) UpdateHealthConditionAssessment(healthAssessmentResp mo
 	return nil
 }
 
-func (s *SaveAssessment) SaveHealthConditionAssessmentLog(healthAssessmentResp models.AldHealthAssessmentHeader) error {
+func (s *SaveAssessment) SaveHealthConditionAssessmentLog(healthAssessmentResp models.AldHealthAssessmentLog) error {
+
 	_, insErr := s.dbConn.Model(&healthAssessmentResp).Insert()
 
 	if insErr != nil {
@@ -88,18 +89,18 @@ func (s *SaveAssessment) IsExistsAuditAssessment(userID int64, questionID int64)
 	return assessmentHeader
 }
 
-func (s *SaveAssessment) SaveAuditAssessment(auditAssessmentResp models.AldAuditAssessmentHeader) error {
+func (s *SaveAssessment) SaveAuditAssessment(auditAssessmentResp models.AldAuditAssessmentHeader) (models.AldAuditAssessmentHeader, error) {
 	_, insErr := s.dbConn.Model(&auditAssessmentResp).Insert()
 
 	if insErr != nil {
 		s.l.Error("SaveAuditAssessment Error--", insErr)
-		return insErr
+		return auditAssessmentResp, insErr
 	}
 
 	dataBytes, _ := json.Marshal(auditAssessmentResp)
 	s.l.Debug("User table json : %q", string(dataBytes))
 
-	return nil
+	return auditAssessmentResp, nil
 }
 
 func (s *SaveAssessment) UpdateAuditAssessment(auditAssessmentResp models.AldAuditAssessmentHeader) error {
@@ -115,7 +116,7 @@ func (s *SaveAssessment) UpdateAuditAssessment(auditAssessmentResp models.AldAud
 	return nil
 }
 
-func (s *SaveAssessment) SaveAuditAssessmentLog(auditAssessmentResp models.AldAuditAssessmentHeader) error {
+func (s *SaveAssessment) SaveAuditAssessmentLog(auditAssessmentResp models.AldAuditAssessmentLog) error {
 	_, insErr := s.dbConn.Model(&auditAssessmentResp).Insert()
 
 	if insErr != nil {
@@ -135,18 +136,18 @@ func (s *SaveAssessment) IsExistsGoalSettingAssessment(userID int64, questionID 
 	return assessmentHeader
 }
 
-func (s *SaveAssessment) SaveGoalSettingAssessment(goalAssessmentResp models.AldGoalSettingAssessmentHeader) error {
+func (s *SaveAssessment) SaveGoalSettingAssessment(goalAssessmentResp models.AldGoalSettingAssessmentHeader) (models.AldGoalSettingAssessmentHeader, error) {
 	_, insErr := s.dbConn.Model(&goalAssessmentResp).Insert()
 
 	if insErr != nil {
 		s.l.Error("SaveGoalSettingAssessment Error--", insErr)
-		return insErr
+		return goalAssessmentResp, insErr
 	}
 
 	dataBytes, _ := json.Marshal(goalAssessmentResp)
 	s.l.Debug("User table json : %q", string(dataBytes))
 
-	return nil
+	return goalAssessmentResp, nil
 }
 
 func (s *SaveAssessment) UpdateGoalSettingAssessment(goalAssessmentResp models.AldGoalSettingAssessmentHeader) error {
@@ -162,7 +163,7 @@ func (s *SaveAssessment) UpdateGoalSettingAssessment(goalAssessmentResp models.A
 	return nil
 }
 
-func (s *SaveAssessment) SaveGoalSettingAssessmentLog(goalAssessmentResp models.AldGoalSettingAssessmentHeader) error {
+func (s *SaveAssessment) SaveGoalSettingAssessmentLog(goalAssessmentResp models.AldGoalSettingAssessmentLog) error {
 
 	_, insErr := s.dbConn.Model(&goalAssessmentResp).Insert()
 

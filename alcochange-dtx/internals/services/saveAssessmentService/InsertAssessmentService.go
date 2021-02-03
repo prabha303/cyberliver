@@ -2,12 +2,14 @@ package saveAssessmentService
 
 import (
 	"cyberliver/alcochange-dtx/dtos"
+	"cyberliver/alcochange-dtx/models"
 	"cyberliver/alcochange-dtx/sentryaccounts"
 )
 
 // HealthConditionAssessment will insert the data into DB
 func (s *SaveAssessment) HealthConditionAssessment(req dtos.HealthConditionAssessmentAnswer, userID int64) error {
 
+	healthConditionLog := models.AldHealthAssessmentLog{}
 	for _, healthCondUserAnswer := range req.UserAnswer {
 		assessmentHeader := s.saveAssessmentDao.IsExistsHealthConditionAssessment(userID, healthCondUserAnswer.QuestionID)
 		if assessmentHeader.ID > 0 {
@@ -20,22 +22,31 @@ func (s *SaveAssessment) HealthConditionAssessment(req dtos.HealthConditionAsses
 				sentryaccounts.SentryLogExceptions(errHealthUpt)
 				return errHealthUpt
 			}
+			healthConditionLog.AldHealthAssessmentHeaderID = assessmentHeader.ID
 		} else {
 			assessmentHeader.UserID = userID
 			assessmentHeader.AldHealthConditionQuestionID = healthCondUserAnswer.QuestionID
 			assessmentHeader.AldHealthConditionOptionID = healthCondUserAnswer.OptionID
 			assessmentHeader.Points = healthCondUserAnswer.Points
 			assessmentHeader.MaxPoints = healthCondUserAnswer.MaxPoints
-			errHealthInsert := s.saveAssessmentDao.SaveHealthConditionAssessment(assessmentHeader)
+			hcIns, errHealthInsert := s.saveAssessmentDao.SaveHealthConditionAssessment(assessmentHeader)
 			if errHealthInsert != nil {
 				s.l.Error("HealthConditionAssessment Error--", errHealthInsert)
 				sentryaccounts.SentryLogExceptions(errHealthInsert)
 
 				return errHealthInsert
 			}
+			healthConditionLog.AldHealthAssessmentHeaderID = hcIns.ID
 		}
 
-		errHealthInsertLog := s.saveAssessmentDao.SaveHealthConditionAssessmentLog(assessmentHeader)
+		healthConditionLog.UserID = assessmentHeader.UserID
+		healthConditionLog.AldHealthConditionQuestionID = assessmentHeader.AldHealthConditionQuestionID
+		healthConditionLog.AldHealthConditionOptionID = assessmentHeader.AldHealthConditionOptionID
+		healthConditionLog.Points = assessmentHeader.Points
+		healthConditionLog.AvgPonits = assessmentHeader.AvgPonits
+		healthConditionLog.MaxPoints = assessmentHeader.MaxPoints
+
+		errHealthInsertLog := s.saveAssessmentDao.SaveHealthConditionAssessmentLog(healthConditionLog)
 		if errHealthInsertLog != nil {
 			s.l.Error("HealthConditionAssessment Error--", errHealthInsertLog)
 			sentryaccounts.SentryLogExceptions(errHealthInsertLog)
@@ -51,6 +62,8 @@ func (s *SaveAssessment) HealthConditionAssessment(req dtos.HealthConditionAsses
 // AuditAssessment will insert the data into DB
 func (s *SaveAssessment) AuditAssessment(req dtos.AuditAssessmentAnswer, userID int64) error {
 
+	auditLog := models.AldAuditAssessmentLog{}
+
 	for _, userAnswer := range req.UserAnswer {
 		assessmentHeader := s.saveAssessmentDao.IsExistsAuditAssessment(userID, userAnswer.QuestionID)
 		if assessmentHeader.ID > 0 {
@@ -64,6 +77,7 @@ func (s *SaveAssessment) AuditAssessment(req dtos.AuditAssessmentAnswer, userID 
 				sentryaccounts.SentryLogExceptions(errAuditUpt)
 				return errAuditUpt
 			}
+			auditLog.AldAuditAssessmentHeaderID = assessmentHeader.ID
 		} else {
 			assessmentHeader.UserID = userID
 			assessmentHeader.AldAuditAssessmentQuestionID = userAnswer.QuestionID
@@ -71,15 +85,23 @@ func (s *SaveAssessment) AuditAssessment(req dtos.AuditAssessmentAnswer, userID 
 			assessmentHeader.Points = userAnswer.Points
 			assessmentHeader.MaxPoints = userAnswer.MaxPoints
 			assessmentHeader.AvgPonits = float64((userAnswer.Points / float64(userAnswer.MaxPoints)) * 100)
-			errAuditInsert := s.saveAssessmentDao.SaveAuditAssessment(assessmentHeader)
+			auditIns, errAuditInsert := s.saveAssessmentDao.SaveAuditAssessment(assessmentHeader)
 			if errAuditInsert != nil {
 				s.l.Error("AuditAssessment Error--", errAuditInsert)
 				sentryaccounts.SentryLogExceptions(errAuditInsert)
 				return errAuditInsert
 			}
+			auditLog.AldAuditAssessmentHeaderID = auditIns.ID
 		}
 
-		errAuditInsertLog := s.saveAssessmentDao.SaveAuditAssessmentLog(assessmentHeader)
+		auditLog.UserID = assessmentHeader.UserID
+		auditLog.AldAuditAssessmentQuestionID = assessmentHeader.AldAuditAssessmentQuestionID
+		auditLog.AldAuditAssessmentOptionID = assessmentHeader.AldAuditAssessmentOptionID
+		auditLog.Points = assessmentHeader.Points
+		auditLog.AvgPonits = assessmentHeader.AvgPonits
+		auditLog.MaxPoints = assessmentHeader.MaxPoints
+
+		errAuditInsertLog := s.saveAssessmentDao.SaveAuditAssessmentLog(auditLog)
 		if errAuditInsertLog != nil {
 			s.l.Error("AuditAssessment Error--", errAuditInsertLog)
 			sentryaccounts.SentryLogExceptions(errAuditInsertLog)
@@ -95,6 +117,8 @@ func (s *SaveAssessment) AuditAssessment(req dtos.AuditAssessmentAnswer, userID 
 // GoalSettingAssessment will insert the data into DB
 func (s *SaveAssessment) GoalSettingAssessment(req dtos.GoalSettingAssessmentAnswer, userID int64) error {
 
+	goalSettingLog := models.AldGoalSettingAssessmentLog{}
+
 	for _, userAnswer := range req.UserAnswer {
 		assessmentHeader := s.saveAssessmentDao.IsExistsGoalSettingAssessment(userID, userAnswer.QuestionID)
 		if assessmentHeader.ID > 0 {
@@ -108,6 +132,7 @@ func (s *SaveAssessment) GoalSettingAssessment(req dtos.GoalSettingAssessmentAns
 				sentryaccounts.SentryLogExceptions(errGoalUpt)
 				return errGoalUpt
 			}
+			goalSettingLog.AldGoalSettingAssessmentHeaderID = assessmentHeader.ID
 		} else {
 			assessmentHeader.UserID = userID
 			assessmentHeader.AldGoalSettingAssessmentQuestionID = userAnswer.QuestionID
@@ -115,15 +140,24 @@ func (s *SaveAssessment) GoalSettingAssessment(req dtos.GoalSettingAssessmentAns
 			assessmentHeader.Points = userAnswer.Points
 			assessmentHeader.MaxPoints = userAnswer.MaxPoints
 			assessmentHeader.AvgPonits = float64((userAnswer.Points / float64(userAnswer.MaxPoints)) * 100)
-			errGoalInsert := s.saveAssessmentDao.SaveGoalSettingAssessment(assessmentHeader)
+			goalSettingIns, errGoalInsert := s.saveAssessmentDao.SaveGoalSettingAssessment(assessmentHeader)
 			if errGoalInsert != nil {
 				s.l.Error("GoalSettingAssessment Error--", errGoalInsert)
 				sentryaccounts.SentryLogExceptions(errGoalInsert)
 				return errGoalInsert
 			}
+			goalSettingLog.AldGoalSettingAssessmentHeaderID = goalSettingIns.ID
+
 		}
 
-		errGoalInsertLog := s.saveAssessmentDao.SaveGoalSettingAssessmentLog(assessmentHeader)
+		goalSettingLog.UserID = assessmentHeader.UserID
+		goalSettingLog.AldGoalSettingAssessmentQuestionID = assessmentHeader.AldGoalSettingAssessmentQuestionID
+		goalSettingLog.AldGoalSettingAssessmentOptionID = assessmentHeader.AldGoalSettingAssessmentOptionID
+		goalSettingLog.Points = assessmentHeader.Points
+		goalSettingLog.AvgPonits = assessmentHeader.AvgPonits
+		goalSettingLog.MaxPoints = assessmentHeader.MaxPoints
+
+		errGoalInsertLog := s.saveAssessmentDao.SaveGoalSettingAssessmentLog(goalSettingLog)
 		if errGoalInsertLog != nil {
 			s.l.Error("GoalSettingAssessment Error--", errGoalInsertLog)
 			sentryaccounts.SentryLogExceptions(errGoalInsertLog)
