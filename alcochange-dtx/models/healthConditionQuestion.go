@@ -1,6 +1,9 @@
 package models
 
-import "time"
+import (
+	"cyberliver/alcochange-dtx/utils"
+	"time"
+)
 
 type AldHealthConditionQuestion struct {
 	ID                   int64               `json:"id"`
@@ -15,6 +18,14 @@ type AldHealthConditionQuestion struct {
 	UpdatedAt            time.Time           `json:"updatedAt" sql:",default:now()"`
 }
 
+func (r *AldHealthConditionQuestion) BeforeInsert(zone string) {
+	currentTime, _ := utils.CurrentTimeWithZone(zone)
+	r.Version++
+	r.IsActive = true
+	r.CreatedAt = currentTime
+	r.UpdatedAt = currentTime
+}
+
 type AldHealthConditionOption struct {
 	ID                           int64                       `json:"id"`
 	Name                         string                      `json:"name"`
@@ -27,4 +38,12 @@ type AldHealthConditionOption struct {
 	IsActive                     bool                        `json:"isActive"`
 	CreatedAt                    time.Time                   `json:"createdAt" sql:",default:now()"`
 	UpdatedAt                    time.Time                   `json:"updatedAt" sql:",default:now()"`
+}
+
+func (r *AldHealthConditionOption) BeforeInsert(zone string) {
+	currentTime, _ := utils.CurrentTimeWithZone(zone)
+	r.Version++
+	r.IsActive = true
+	r.CreatedAt = currentTime
+	r.UpdatedAt = currentTime
 }

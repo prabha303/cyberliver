@@ -17,9 +17,7 @@ func InitDB() {
 	CreateTables(db)
 	MigrateTables(db)
 	CreateIndex(db)
-	createUserType()
-	createProductAccess()
-	createQuestionOptionType()
+	InsertValues(db)
 }
 
 //getModels function use to get all the masters from models
@@ -107,93 +105,4 @@ func CreateIndex(db *pg.DB) {
 			//log.Printf("CreateIndex success")
 		}
 	}
-}
-
-func createUserType() {
-	db := dbcon.Get()
-	userTypeC := []models.UserType{
-		{
-			Name:        "patient",
-			Code:        "PATIENT",
-			Description: "Patient login",
-			IsActive:    true,
-		},
-		{
-			Name:        "Others",
-			Code:        "OTHERS",
-			Description: "Others role for user",
-			IsActive:    true,
-		},
-	}
-	for _, rowData := range userTypeC {
-		userType := &models.UserType{}
-		db.Model(userType).Where("LOWER(code) = LOWER(?)", rowData.Code).Select()
-		if userType.ID == 0 {
-			rowData.BeforeInsert("")
-			if _, err := db.Model(&rowData).Insert(); err != nil {
-				log.Println("Error to insert default user_types.", err.Error())
-				return
-			}
-			log.Println("User Types created successfully.")
-		}
-	}
-
-}
-
-func createQuestionOptionType() {
-	db := dbcon.Get()
-	questionOptionIns := []models.QuestionOptionType{
-		{
-			Name:     "Radio",
-			Code:     "SINGLE",
-			IsActive: true,
-		},
-		{
-			Name:     "Checkbox",
-			Code:     "MULTIPLE",
-			IsActive: true,
-		},
-		{
-			Name:     "Likert Scal",
-			Code:     "SINGLE_LIKERT`",
-			IsActive: true,
-		},
-	}
-	for _, rowData := range questionOptionIns {
-		quesOptionType := &models.QuestionOptionType{}
-		db.Model(quesOptionType).Where("LOWER(code) = LOWER(?)", rowData.Code).Select()
-		if quesOptionType.ID == 0 {
-			rowData.BeforeInsert("")
-			if _, err := db.Model(&rowData).Insert(); err != nil {
-				log.Println("Error to insert default question_option_type.", err.Error())
-				return
-			}
-			log.Println("Question Option Type created successfully.")
-		}
-	}
-
-}
-
-func createProductAccess() {
-	db := dbcon.Get()
-	pAccess := []models.ProductAccess{
-		{
-			Name:     "AlcoChange ",
-			Code:     "ALCOCHANGE-DTX",
-			IsActive: true,
-		},
-	}
-	for _, accessData := range pAccess {
-		access := &models.ProductAccess{}
-		db.Model(access).Where("LOWER(code) = LOWER(?)", &accessData.Code).Select()
-		if access.ID == 0 {
-			accessData.BeforeInsert("")
-			if _, err := db.Model(&accessData).Insert(); err != nil {
-				log.Println("Error to insert default ProductAccess.", err.Error())
-				return
-			}
-			log.Println("ProductAccess created successfully.")
-		}
-	}
-
 }
