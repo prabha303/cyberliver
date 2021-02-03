@@ -23,7 +23,7 @@ type AldGoalSettingAssessmentHeader struct {
 
 type AldGoalSettingAssessmentLog struct {
 	ID                                 int64                             `json:"id"`
-	AldGoalSettingAssessmentHeaderID   int64                             `json:"aldGoalSettingAssessmentHeaderID"`
+	AldGoalSettingAssessmentHeaderID   int64                             `json:"aldGoalSettingAssessmentHeaderID" validate:"required" sql:",notnull"`
 	AldGoalSettingAssessmentHeader     *AldGoalSettingAssessmentHeader   `json:"aldGoalSettingAssessmentHeader" pg:"joinFK:id"`
 	UserID                             int64                             `json:"userID"`
 	User                               *User                             `json:"user" pg:"joinFK:id"`

@@ -169,3 +169,51 @@ func (s *SaveAssessment) GoalSettingAssessment(req dtos.GoalSettingAssessmentAns
 	return nil
 
 }
+
+// SupportiveContactAssessment will insert the data into DB
+func (s *SaveAssessment) SupportiveContactAssessment(req dtos.SupportiveContact, userID int64) error {
+
+	supContactLog := models.AldSupportiveContactLog{}
+	supContactHeader := models.AldSupportiveContactHeader{}
+
+	supContactHeader.UserID = userID
+
+	isExist := s.saveAssessmentDao.IsExistsSupportiveContact(userID)
+	if isExist {
+		errSCUpt := s.saveAssessmentDao.DeleteSupportiveContact(userID)
+		if errSCUpt != nil {
+			s.l.Error("SupportiveContactAssessment Error--", errSCUpt)
+			sentryaccounts.SentryLogExceptions(errSCUpt)
+			return errSCUpt
+		}
+	}
+
+	for _, contact := range req.Contacts {
+		supContactHeader.Name = contact.Name
+		supContactHeader.ContactNumber = contact.ContactNumber
+		supContactHeader.AldRelationShipID = contact.RelationShipID
+		supportiveContactIns, errSCInsert := s.saveAssessmentDao.SaveSupportiveContact(supContactHeader)
+		if errSCInsert != nil {
+			s.l.Error("SupportiveContactAssessment Error--", errSCInsert)
+			sentryaccounts.SentryLogExceptions(errSCInsert)
+			return errSCInsert
+		}
+		supContactLog.AldSupportiveContactHeaderID = supportiveContactIns.ID
+
+		supContactLog.Name = supContactHeader.Name
+		supContactLog.ContactNumber = supContactHeader.ContactNumber
+		supContactLog.AldRelationShipID = supContactHeader.AldRelationShipID
+		supContactLog.UserID = supContactHeader.UserID
+
+		errSCLog := s.saveAssessmentDao.SaveSupportiveContactLog(supContactLog)
+		if errSCLog != nil {
+			s.l.Error("SupportiveContactAssessment Error--", errSCLog)
+			sentryaccounts.SentryLogExceptions(errSCLog)
+			return errSCLog
+		}
+
+	}
+
+	return nil
+
+}
