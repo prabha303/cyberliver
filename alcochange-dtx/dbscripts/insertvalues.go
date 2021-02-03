@@ -2,6 +2,7 @@ package dbscripts
 
 import (
 	"cyberliver/alcochange-dtx/models"
+	"fmt"
 	"log"
 
 	"github.com/go-pg/pg"
@@ -12,7 +13,7 @@ func InsertValues(db *pg.DB) {
 	createProductAccess(db)
 	createQuestionOptionType(db)
 	createHealthAssesmentQuestion(db)
-	//createHealthAssesmentQuestionOptions(db)
+	createHealthAssesmentQuestionOptions(db)
 }
 
 func createUserType(db *pg.DB) {
@@ -126,34 +127,36 @@ func createHealthAssesmentQuestionOptions(db *pg.DB) {
 			Name:                         "Jaundice (yellow eyes or skin)",
 			AldHealthConditionQuestionID: 1,
 			SequenceOrder:                1,
-			Points:                       0,
+			Points:                       0.0,
 			MaxPoints:                    10,
 		},
 		{
 			Name:                         "Ascites (swelling of abdomen or tummy)",
 			AldHealthConditionQuestionID: 1,
 			SequenceOrder:                2,
-			Points:                       0,
+			Points:                       0.0,
 			MaxPoints:                    10,
 		},
 		{
 			Name:                         "Swelling of legs",
 			AldHealthConditionQuestionID: 1,
 			SequenceOrder:                3,
-			Points:                       0,
+			Points:                       0.0,
 			MaxPoints:                    10,
 		},
 		{
 			Name:                         "Low energy levels",
 			AldHealthConditionQuestionID: 1,
 			SequenceOrder:                4,
-			Points:                       0,
+			Points:                       0.0,
 			MaxPoints:                    10,
 		},
 	}
 	for _, health := range healthQuestions {
 		healthRow := []models.AldHealthConditionOption{}
 		db.Model(healthRow).Where("ald_health_condition_question_id = ? AND sequence_order = ?", &health.AldHealthConditionQuestionID, &health.SequenceOrder).Select()
+		fmt.Print("health.AldHealthConditionQuestionID, &health.SequenceOrder", health.AldHealthConditionQuestionID, &health.SequenceOrder, len(healthRow))
+
 		if len(healthRow) == 0 {
 			health.BeforeInsert("")
 			if _, err := db.Model(&health).Insert(); err != nil {
