@@ -3,6 +3,7 @@ package saveAssessmentService
 import (
 	"cyberliver/alcochange-dtx/dtos"
 	"cyberliver/alcochange-dtx/internals/daos"
+	"cyberliver/alcochange-dtx/sentryaccounts"
 
 	"github.com/FenixAra/go-util/log"
 	"github.com/go-pg/pg"
@@ -23,7 +24,28 @@ func NewSaveAssessment(l *log.Logger, dbConn *pg.DB) *SaveAssessment {
 }
 
 // SaveAssessmentDetails service for logic
-func (s *SaveAssessment) SaveAssessmentDetails(req dtos.SaveAssessmentRequest) error {
+func (s *SaveAssessment) SaveAssessmentDetails(req dtos.SaveAssessmentRequest, userID int64) error {
+
+	hErr := s.HealthConditionAssessment(req.HealthConditionAssessmentAnswer, userID)
+	if hErr != nil {
+		s.l.Error("SaveAssessmentDetails Error--", hErr)
+		sentryaccounts.SentryLogExceptions(hErr)
+		return hErr
+	}
+
+	aErr := s.AuditAssessment(req.AuditAssessmentAnswer, userID)
+	if hErr != nil {
+		s.l.Error("SaveAssessmentDetails Error--", aErr)
+		sentryaccounts.SentryLogExceptions(aErr)
+		return hErr
+	}
+
+	gErr := s.GoalSettingAssessment(req.GoalSettingAssessmentAnswer, userID)
+	if gErr != nil {
+		s.l.Error("SaveAssessmentDetails Error--", gErr)
+		sentryaccounts.SentryLogExceptions(gErr)
+		return hErr
+	}
 
 	return nil
 }

@@ -12,6 +12,7 @@ import (
 
 	"github.com/FenixAra/go-util/log"
 	"github.com/go-pg/pg"
+	"github.com/julienschmidt/httprouter"
 
 	"cyberliver/alcochange-dtx/dbcon"
 	"cyberliver/alcochange-dtx/errs"
@@ -238,4 +239,16 @@ func parseJSONWithError(w http.ResponseWriter, body io.ReadCloser, model interfa
 		return false, err
 	}
 	return true, nil
+}
+
+//GetIDFromParams function is use to get ID from request
+func GetIDFromParams(w http.ResponseWriter, r *http.Request, key string) (int64, error) {
+	params, _ := r.Context().Value("params").(httprouter.Params)
+	idStr := params.ByName(key)
+	id, err := strconv.ParseInt(idStr, 10, 64)
+	if err != nil {
+		return id, err
+	}
+
+	return id, nil
 }

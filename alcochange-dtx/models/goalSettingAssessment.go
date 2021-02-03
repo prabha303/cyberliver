@@ -1,28 +1,39 @@
 package models
 
-import "time"
+import (
+	"time"
+)
 
-type AldGoalSettingAssessmentQuestion struct {
-	ID                   int64               `json:"id"`
-	Question             string              `json:"question"`
-	QuestionNo           int                 `json:"questionNo"`
-	QuestionOptionTypeID int64               `json:"questionOptionTypeID" validate:"required" sql:",notnull"`
-	QuestionOptionType   *QuestionOptionType `json:"questionOptionType" pg:"joinFK:id"`
-	SequenceOrder        int                 `json:"sequenceOrder"`
-	Version              int64               `json:"version"`
-	IsActive             bool                `json:"isActive"`
-	CreatedAt            time.Time           `json:"createdAt" sql:",default:now()"`
-	UpdatedAt            time.Time           `json:"updatedAt" sql:",default:now()"`
-}
-
-type AldGoalSettingAssessmentOption struct {
+type AldGoalSettingAssessmentHeader struct {
 	ID                                 int64                             `json:"id"`
-	Name                               string                            `json:"name"`
-	Points                             float64                           `json:"points"`
-	MaxPoints                          int                               `json:"maxPoints"`
+	UserID                             int64                             `json:"userID"`
+	User                               *User                             `json:"user" pg:"joinFK:id"`
 	AldGoalSettingAssessmentQuestionID int64                             `json:"aldGoalSettingAssessmentQuestionID" validate:"required" sql:",notnull"`
 	AldGoalSettingAssessmentQuestion   *AldGoalSettingAssessmentQuestion `json:"aldGoalSettingAssessmentQuestion" pg:"joinFK:id"`
-	SequenceOrder                      int                               `json:"sequenceOrder"`
+	AldGoalSettingAssessmentOptionID   int64                             `json:"aldGoalSettingAssessmentOptionID" validate:"required" sql:",notnull"`
+	AldGoalSettingAssessmentOption     *AldGoalSettingAssessmentOption   `json:"aldGoalSettingAssessmentOption" pg:"joinFK:id"`
+	Points                             float64                           `json:"points" sql:",notnull"`
+	AvgPonits                          float64                           `json:"avgPonits" sql:",notnull,default:0"`
+	MaxPoints                          int                               `json:"maxPoints" sql:",notnull,default:0"`
+	Version                            int64                             `json:"version"`
+	IsActive                           bool                              `json:"isActive"`
+	CreatedAt                          time.Time                         `json:"createdAt" sql:",default:now()"`
+	UpdatedAt                          time.Time                         `json:"updatedAt" sql:",default:now()"`
+}
+
+type AldGoalSettingAssessmentLog struct {
+	ID                                 int64                             `json:"id"`
+	AldGoalSettingAssessmentHeaderID   int64                             `json:"aldGoalSettingAssessmentHeaderID"`
+	AldGoalSettingAssessmentHeader     *AldGoalSettingAssessmentHeader   `json:"aldGoalSettingAssessmentHeader" pg:"joinFK:id"`
+	UserID                             int64                             `json:"userID"`
+	User                               *User                             `json:"user" pg:"joinFK:id"`
+	AldGoalSettingAssessmentQuestionID int64                             `json:"aldGoalSettingAssessmentQuestionID" validate:"required" sql:",notnull"`
+	AldGoalSettingAssessmentQuestion   *AldGoalSettingAssessmentQuestion `json:"aldGoalSettingAssessmentQuestion" pg:"joinFK:id"`
+	AldGoalSettingAssessmentOptionID   int64                             `json:"aldGoalSettingAssessmentOptionID" validate:"required" sql:",notnull"`
+	AldGoalSettingAssessmentOption     *AldGoalSettingAssessmentOption   `json:"aldGoalSettingAssessmentOption" pg:"joinFK:id"`
+	Points                             float64                           `json:"points" sql:",notnull"`
+	AvgPonits                          float64                           `json:"avgPonits" sql:",notnull,default:0"`
+	MaxPoints                          int                               `json:"maxPoints" sql:",notnull,default:0"`
 	Version                            int64                             `json:"version"`
 	IsActive                           bool                              `json:"isActive"`
 	CreatedAt                          time.Time                         `json:"createdAt" sql:",default:now()"`

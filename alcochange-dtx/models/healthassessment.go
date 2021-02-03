@@ -14,7 +14,7 @@ type AldHealthAssessmentHeader struct {
 	AldHealthConditionOption     *AldHealthConditionOption   `json:"aldHealthConditionOption" pg:"joinFK:id"`
 	Points                       float64                     `json:"points" sql:",notnull"`
 	AvgPonits                    float64                     `json:"avgPonits" sql:",notnull,default:0"`
-	TotalPoints                  int                         `json:"totalPoints" sql:",notnull,default:0"`
+	MaxPoints                    int                         `json:"maxPoints" sql:",notnull,default:0"`
 	Version                      int64                       `json:"version"`
 	IsActive                     bool                        `json:"isActive"`
 	CreatedAt                    time.Time                   `json:"createdAt" sql:",default:now()"`
@@ -33,7 +33,7 @@ type AldHealthAssessmentLog struct {
 	AldHealthConditionOption     *AldHealthConditionOption   `json:"aldHealthConditionOption" pg:"joinFK:id"`
 	Points                       float64                     `json:"points" sql:",notnull"`
 	AvgPonits                    float64                     `json:"avgPonits" sql:",notnull,default:0"`
-	TotalPoints                  int                         `json:"totalPoints" sql:",notnull,default:0"`
+	MaxPoints                    int                         `json:"maxPoints" sql:",notnull,default:0"`
 	Version                      int64                       `json:"version"`
 	IsActive                     bool                        `json:"isActive"`
 	CreatedAt                    time.Time                   `json:"createdAt" sql:",default:now()"`
