@@ -47,5 +47,12 @@ func (s *SaveAssessment) SaveAssessmentDetails(req dtos.SaveAssessmentRequest, u
 		return hErr
 	}
 
+	sErr := s.SupportiveContactAssessment(req.SupportiveContact, userID)
+	if sErr != nil {
+		s.l.Error("SaveAssessmentDetails Error--", sErr)
+		sentryaccounts.SentryLogExceptions(sErr)
+		return sErr
+	}
+
 	return nil
 }
