@@ -23,7 +23,7 @@ func NewGoalSettingAssessmentDB(l *log.Logger, dbConn *pg.DB) *GoalSettingAssess
 // GoalSettingAssessmentDao interface
 type GoalSettingAssessmentDao interface {
 	GoalSettingAssessmentQuestion() ([]models.AldGoalSettingAssessmentQuestion, error)
-	GoalSettingAssessmentOption(id int64) ([]models.AldGoalSettingAssessmentOption, error)
+	GoalSettingAssessmentOption(id int) ([]models.AldGoalSettingAssessmentOption, error)
 }
 
 // GoalSettingAssessmentQuestion get the questions from Database
@@ -42,7 +42,7 @@ func (a *GoalSettingAssessment) GoalSettingAssessmentQuestion() ([]models.AldGoa
 }
 
 // GoalSettingAssessmentOption get the options from Database
-func (a *GoalSettingAssessment) GoalSettingAssessmentOption(id int64) ([]models.AldGoalSettingAssessmentOption, error) {
+func (a *GoalSettingAssessment) GoalSettingAssessmentOption(id int) ([]models.AldGoalSettingAssessmentOption, error) {
 	gsIns := []models.AldGoalSettingAssessmentOption{}
 
 	err := a.dbConn.Model(&gsIns).Where("ald_goal_setting__assessment_question_id = '%d'", id).Select()

@@ -24,8 +24,8 @@ func NewGoalSettingAssessment(l *log.Logger, dbConn *pg.DB) *GoalSettingAssessme
 }
 
 // GetGoalSettingAssessmentMessage service for logic
-func (gs *GoalSettingAssessment) GetGoalSettingAssessmentMessage() (*dtos.GoalSettingAssessmentResponse, error) {
-	gsIns := dtos.GoalSettingAssessmentResponse{}
+func (gs *GoalSettingAssessment) GetGoalSettingAssessmentMessage() (*[]dtos.GoalSettingAssessmentResponse, error) {
+	gsettingIns := []dtos.GoalSettingAssessmentResponse{}
 	options := dtos.GoalSettingAssessmentOption{}
 
 	goalSettingQuestionResponse, err := gs.goalSettingAssessmentDao.GoalSettingAssessmentQuestion()
@@ -36,14 +36,14 @@ func (gs *GoalSettingAssessment) GetGoalSettingAssessmentMessage() (*dtos.GoalSe
 	}
 
 	for _, gsQuestion := range goalSettingQuestionResponse {
-
+		gsIns := dtos.GoalSettingAssessmentResponse{}
 		gsIns.ID = gsQuestion.ID
 		gsIns.Question = gsQuestion.Question
 		gsIns.QuestionNo = gsQuestion.QuestionNo
 		gsIns.QuestionOptionTypeID = gsQuestion.QuestionOptionTypeID
 		gsIns.SequenceOrder = gsQuestion.SequenceOrder
 
-		gsOptionResponse, err := gs.goalSettingAssessmentDao.GoalSettingAssessmentOption(gsIns.ID)
+		gsOptionResponse, err := gs.goalSettingAssessmentDao.GoalSettingAssessmentOption(gsIns.QuestionNo)
 		if err != nil {
 			gs.l.Error("GetGoalSettingAssessmentMessage Error - ", err)
 			sentryaccounts.SentryLogExceptions(err)
@@ -59,7 +59,8 @@ func (gs *GoalSettingAssessment) GetGoalSettingAssessmentMessage() (*dtos.GoalSe
 			options.SequenceOrder = gsOption.SequenceOrder
 			gsIns.Options = append(gsIns.Options, options)
 		}
+		gsettingIns = append(gsettingIns, gsIns)
 	}
 
-	return &gsIns, nil
+	return &gsettingIns, nil
 }

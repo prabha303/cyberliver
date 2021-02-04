@@ -18,6 +18,21 @@ type AldSupportiveContactHeader struct {
 	UpdatedAt         time.Time        `json:"updatedAt" sql:",default:now()"`
 }
 
+func (r *AldSupportiveContactHeader) BeforeInsert() {
+	// currentTime, _ := utils.CurrentTimeWithZone(zone)
+	r.Version++
+	r.IsActive = true
+	r.CreatedAt = time.Now()
+	r.UpdatedAt = time.Now()
+}
+
+func (r *AldSupportiveContactHeader) BeforeUpdate() {
+	// currentTime, _ := utils.CurrentTimeWithZone(zone)
+	r.Version++
+	r.IsActive = true
+	r.UpdatedAt = time.Now()
+}
+
 type AldSupportiveContactLog struct {
 	ID                           int64                       `json:"id"`
 	Name                         string                      `json:"name"`
@@ -32,4 +47,12 @@ type AldSupportiveContactLog struct {
 	IsActive                     bool                        `json:"isActive"`
 	CreatedAt                    time.Time                   `json:"createdAt" sql:",default:now()"`
 	UpdatedAt                    time.Time                   `json:"updatedAt" sql:",default:now()"`
+}
+
+func (r *AldSupportiveContactLog) BeforeInsert() {
+	// currentTime, _ := utils.CurrentTimeWithZone(zone)
+	r.Version++
+	r.IsActive = true
+	r.CreatedAt = time.Now()
+	r.UpdatedAt = time.Now()
 }

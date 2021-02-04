@@ -24,8 +24,9 @@ func NewAuditAssessment(l *log.Logger, dbConn *pg.DB) *AuditAssessment {
 }
 
 // GetAuditAssessmentMessage service for logic
-func (a *AuditAssessment) GetAuditAssessmentMessage() (*dtos.AuditAssessmentResponse, error) {
-	auditIns := dtos.AuditAssessmentResponse{}
+func (a *AuditAssessment) GetAuditAssessmentMessage() (*[]dtos.AuditAssessmentResponse, error) {
+
+	audit := []dtos.AuditAssessmentResponse{}
 	options := dtos.AuditAssessmentOption{}
 
 	auditQuestionResponse, err := a.auditAssessmentDao.AuditAssessmentQuestion()
@@ -36,14 +37,14 @@ func (a *AuditAssessment) GetAuditAssessmentMessage() (*dtos.AuditAssessmentResp
 	}
 
 	for _, auditQuestion := range auditQuestionResponse {
-
+		auditIns := dtos.AuditAssessmentResponse{}
 		auditIns.ID = auditQuestion.ID
 		auditIns.Question = auditQuestion.Question
 		auditIns.QuestionNo = auditQuestion.QuestionNo
 		auditIns.QuestionOptionTypeID = auditQuestion.QuestionOptionTypeID
 		auditIns.SequenceOrder = auditQuestion.SequenceOrder
 
-		auditOptionResponse, err := a.auditAssessmentDao.AuditAssessmentOption(auditIns.ID)
+		auditOptionResponse, err := a.auditAssessmentDao.AuditAssessmentOption(auditIns.QuestionNo)
 		if err != nil {
 			a.l.Error("GetAuditAssessmentMessage Error - ", err)
 			sentryaccounts.SentryLogExceptions(err)
@@ -59,7 +60,9 @@ func (a *AuditAssessment) GetAuditAssessmentMessage() (*dtos.AuditAssessmentResp
 			options.SequenceOrder = auditOption.SequenceOrder
 			auditIns.Options = append(auditIns.Options, options)
 		}
+
+		audit = append(audit, auditIns)
 	}
 
-	return &auditIns, nil
+	return &audit, nil
 }

@@ -21,6 +21,21 @@ type AldHealthAssessmentHeader struct {
 	UpdatedAt                    time.Time                   `json:"updatedAt" sql:",default:now()"`
 }
 
+func (r *AldHealthAssessmentHeader) BeforeInsert() {
+	// currentTime, _ := utils.CurrentTimeWithZone(zone)
+	r.Version++
+	r.IsActive = true
+	r.CreatedAt = time.Now()
+	r.UpdatedAt = time.Now()
+}
+
+func (r *AldHealthAssessmentHeader) BeforeUpdate() {
+	// currentTime, _ := utils.CurrentTimeWithZone(zone)
+	r.Version++
+	r.IsActive = true
+	r.UpdatedAt = time.Now()
+}
+
 type AldHealthAssessmentLog struct {
 	ID                           int64                       `json:"id"`
 	AldHealthAssessmentHeaderID  int64                       `json:"aldHealthAssessmentHeaderID" validate:"required" sql:",notnull"`
@@ -38,4 +53,12 @@ type AldHealthAssessmentLog struct {
 	IsActive                     bool                        `json:"isActive"`
 	CreatedAt                    time.Time                   `json:"createdAt" sql:",default:now()"`
 	UpdatedAt                    time.Time                   `json:"updatedAt" sql:",default:now()"`
+}
+
+func (r *AldHealthAssessmentLog) BeforeInsert() {
+	// currentTime, _ := utils.CurrentTimeWithZone(zone)
+	r.Version++
+	r.IsActive = true
+	r.CreatedAt = time.Now()
+	r.UpdatedAt = time.Now()
 }

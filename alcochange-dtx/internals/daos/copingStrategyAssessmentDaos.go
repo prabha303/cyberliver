@@ -23,7 +23,7 @@ func NewCopingStrategyAssessmentDB(l *log.Logger, dbConn *pg.DB) *CopingStrategy
 // CopingStrategyAssessmentDao interface
 type CopingStrategyAssessmentDao interface {
 	CopingStrategyAssessmentQuestion() ([]models.AldCopingStrategyAssessmentQuestion, error)
-	CopingStrategyAssessmentOption(id int64) ([]models.AldCopingStrategyAssessmentOption, error)
+	CopingStrategyAssessmentOption(id int) ([]models.AldCopingStrategyAssessmentOption, error)
 }
 
 // CopingStrategyAssessmentQuestion get the questions from Database
@@ -42,10 +42,10 @@ func (cs *CopingStrategyAssessment) CopingStrategyAssessmentQuestion() ([]models
 }
 
 // CopingStrategyAssessmentOption get the options from Database
-func (cs *CopingStrategyAssessment) CopingStrategyAssessmentOption(id int64) ([]models.AldCopingStrategyAssessmentOption, error) {
+func (cs *CopingStrategyAssessment) CopingStrategyAssessmentOption(id int) ([]models.AldCopingStrategyAssessmentOption, error) {
 	copingStrategyIns := []models.AldCopingStrategyAssessmentOption{}
 
-	err := cs.dbConn.Model(&copingStrategyIns).Where("ald_coping_strategy_assessment_question_id = '%d'", id).Select()
+	err := cs.dbConn.Model(&copingStrategyIns).Where("ald_coping_strategy_assessment_question_id = ?", id).Select()
 	if err != nil {
 		cs.l.Error("CopingStrategyAssessmentOption Error", err.Error())
 		sentryaccounts.SentryLogExceptions(err)

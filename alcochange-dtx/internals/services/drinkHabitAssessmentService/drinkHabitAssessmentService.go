@@ -25,7 +25,7 @@ func NewDrinkHabitAssessment(l *log.Logger, dbConn *pg.DB) *DrinkHabitAssessment
 
 // GetDrinkHabitAssessmentMessage service for logic
 func (da *DrinkHabitAssessment) GetDrinkHabitAssessmentMessage() (*dtos.DrinkHabitAssessmentResponse, error) {
-	drinkHabitIns := dtos.DrinkHabitAssessmentResponse{}
+	drinkHabit := []dtos.DrinkHabitQuestions{}
 	options := dtos.DrinkHabitAssessmentOption{}
 
 	drinkHabitQuestionResponse, err := da.drinkHabitAssessmentDao.DrinkHabitAssessmentQuestion()
@@ -36,7 +36,7 @@ func (da *DrinkHabitAssessment) GetDrinkHabitAssessmentMessage() (*dtos.DrinkHab
 	}
 
 	for _, drinkHabitQuestion := range drinkHabitQuestionResponse {
-
+		drinkHabitIns := dtos.DrinkHabitQuestions{}
 		drinkHabitIns.ID = drinkHabitQuestion.ID
 		drinkHabitIns.Question = drinkHabitQuestion.Question
 		drinkHabitIns.QuestionNo = drinkHabitQuestion.QuestionNo
@@ -59,7 +59,17 @@ func (da *DrinkHabitAssessment) GetDrinkHabitAssessmentMessage() (*dtos.DrinkHab
 			options.SequenceOrder = drinkHabitOption.SequenceOrder
 			drinkHabitIns.Options = append(drinkHabitIns.Options, options)
 		}
+
+		drinkHabit = append(drinkHabit, drinkHabitIns)
+
 	}
 
-	return &drinkHabitIns, nil
+	asd := []dtos.DrinkProfiles{}
+
+	drinkHabitResponse := dtos.DrinkHabitAssessmentResponse{
+		DrinkProfiles:       asd,
+		DrinkHabitQuestions: drinkHabit,
+	}
+
+	return &drinkHabitResponse, nil
 }

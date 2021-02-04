@@ -23,7 +23,7 @@ func NewAuditAssessmentDB(l *log.Logger, dbConn *pg.DB) *AuditAssessment {
 // AuditAssessmentDao interface
 type AuditAssessmentDao interface {
 	AuditAssessmentQuestion() ([]models.AldAuditAssessmentQuestion, error)
-	AuditAssessmentOption(id int64) ([]models.AldAuditAssessmentOption, error)
+	AuditAssessmentOption(id int) ([]models.AldAuditAssessmentOption, error)
 }
 
 // AuditAssessmentQuestion get the questions from Database
@@ -34,7 +34,8 @@ func (a *AuditAssessment) AuditAssessmentQuestion() ([]models.AldAuditAssessment
 	if err != nil {
 		a.l.Error("AuditAssessmentQuestion Error", err.Error())
 		sentryaccounts.SentryLogExceptions(err)
-		//return nil, err
+
+		return nil, err
 	}
 
 	return auditIns, nil
@@ -42,10 +43,10 @@ func (a *AuditAssessment) AuditAssessmentQuestion() ([]models.AldAuditAssessment
 }
 
 // AuditAssessmentOption get the options from Database
-func (a *AuditAssessment) AuditAssessmentOption(id int64) ([]models.AldAuditAssessmentOption, error) {
+func (a *AuditAssessment) AuditAssessmentOption(id int) ([]models.AldAuditAssessmentOption, error) {
 	auditIns := []models.AldAuditAssessmentOption{}
 
-	err := a.dbConn.Model(&auditIns).Where("ald_audit_assessment_question_id = '%d'", id).Select()
+	err := a.dbConn.Model(&auditIns).Where("ald_audit_assessment_question_id = ?", id).Select()
 	if err != nil {
 		a.l.Error("AuditAssessmentOption Error", err.Error())
 		sentryaccounts.SentryLogExceptions(err)

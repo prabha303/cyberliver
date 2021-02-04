@@ -16,6 +16,9 @@ func (s *SaveAssessment) HealthConditionAssessment(req dtos.HealthConditionAsses
 			assessmentHeader.AldHealthConditionOptionID = healthCondUserAnswer.OptionID
 			assessmentHeader.Points = healthCondUserAnswer.Points
 			assessmentHeader.MaxPoints = healthCondUserAnswer.MaxPoints
+
+			assessmentHeader.BeforeUpdate()
+
 			errHealthUpt := s.saveAssessmentDao.UpdateHealthConditionAssessment(assessmentHeader)
 			if errHealthUpt != nil {
 				s.l.Error("HealthConditionAssessment Error--", errHealthUpt)
@@ -29,6 +32,9 @@ func (s *SaveAssessment) HealthConditionAssessment(req dtos.HealthConditionAsses
 			assessmentHeader.AldHealthConditionOptionID = healthCondUserAnswer.OptionID
 			assessmentHeader.Points = healthCondUserAnswer.Points
 			assessmentHeader.MaxPoints = healthCondUserAnswer.MaxPoints
+
+			assessmentHeader.BeforeInsert()
+
 			hcIns, errHealthInsert := s.saveAssessmentDao.SaveHealthConditionAssessment(assessmentHeader)
 			if errHealthInsert != nil {
 				s.l.Error("HealthConditionAssessment Error--", errHealthInsert)
@@ -45,6 +51,8 @@ func (s *SaveAssessment) HealthConditionAssessment(req dtos.HealthConditionAsses
 		healthConditionLog.Points = assessmentHeader.Points
 		healthConditionLog.AvgPoints = assessmentHeader.AvgPoints
 		healthConditionLog.MaxPoints = assessmentHeader.MaxPoints
+
+		healthConditionLog.BeforeInsert()
 
 		errHealthInsertLog := s.saveAssessmentDao.SaveHealthConditionAssessmentLog(healthConditionLog)
 		if errHealthInsertLog != nil {
@@ -71,6 +79,9 @@ func (s *SaveAssessment) AuditAssessment(req dtos.AuditAssessmentAnswer, userID 
 			assessmentHeader.Points = userAnswer.Points
 			assessmentHeader.MaxPoints = userAnswer.MaxPoints
 			assessmentHeader.AvgPoints = float64((userAnswer.Points / float64(userAnswer.MaxPoints)) * 100)
+
+			assessmentHeader.BeforeUpdate()
+
 			errAuditUpt := s.saveAssessmentDao.UpdateAuditAssessment(assessmentHeader)
 			if errAuditUpt != nil {
 				s.l.Error("AuditAssessment Error--", errAuditUpt)
@@ -85,6 +96,9 @@ func (s *SaveAssessment) AuditAssessment(req dtos.AuditAssessmentAnswer, userID 
 			assessmentHeader.Points = userAnswer.Points
 			assessmentHeader.MaxPoints = userAnswer.MaxPoints
 			assessmentHeader.AvgPoints = float64((userAnswer.Points / float64(userAnswer.MaxPoints)) * 100)
+
+			assessmentHeader.BeforeInsert()
+
 			auditIns, errAuditInsert := s.saveAssessmentDao.SaveAuditAssessment(assessmentHeader)
 			if errAuditInsert != nil {
 				s.l.Error("AuditAssessment Error--", errAuditInsert)
@@ -100,6 +114,8 @@ func (s *SaveAssessment) AuditAssessment(req dtos.AuditAssessmentAnswer, userID 
 		auditLog.Points = assessmentHeader.Points
 		auditLog.AvgPoints = assessmentHeader.AvgPoints
 		auditLog.MaxPoints = assessmentHeader.MaxPoints
+
+		auditLog.BeforeInsert()
 
 		errAuditInsertLog := s.saveAssessmentDao.SaveAuditAssessmentLog(auditLog)
 		if errAuditInsertLog != nil {
@@ -126,6 +142,9 @@ func (s *SaveAssessment) GoalSettingAssessment(req dtos.GoalSettingAssessmentAns
 			assessmentHeader.Points = userAnswer.Points
 			assessmentHeader.MaxPoints = userAnswer.MaxPoints
 			assessmentHeader.AvgPoints = float64((userAnswer.Points / float64(userAnswer.MaxPoints)) * 100)
+
+			assessmentHeader.BeforeUpdate()
+
 			errGoalUpt := s.saveAssessmentDao.UpdateGoalSettingAssessment(assessmentHeader)
 			if errGoalUpt != nil {
 				s.l.Error("GoalSettingAssessment Error--", errGoalUpt)
@@ -140,6 +159,9 @@ func (s *SaveAssessment) GoalSettingAssessment(req dtos.GoalSettingAssessmentAns
 			assessmentHeader.Points = userAnswer.Points
 			assessmentHeader.MaxPoints = userAnswer.MaxPoints
 			assessmentHeader.AvgPoints = float64((userAnswer.Points / float64(userAnswer.MaxPoints)) * 100)
+
+			assessmentHeader.BeforeInsert()
+
 			goalSettingIns, errGoalInsert := s.saveAssessmentDao.SaveGoalSettingAssessment(assessmentHeader)
 			if errGoalInsert != nil {
 				s.l.Error("GoalSettingAssessment Error--", errGoalInsert)
@@ -156,6 +178,8 @@ func (s *SaveAssessment) GoalSettingAssessment(req dtos.GoalSettingAssessmentAns
 		goalSettingLog.Points = assessmentHeader.Points
 		goalSettingLog.AvgPoints = assessmentHeader.AvgPoints
 		goalSettingLog.MaxPoints = assessmentHeader.MaxPoints
+
+		goalSettingLog.BeforeInsert()
 
 		errGoalInsertLog := s.saveAssessmentDao.SaveGoalSettingAssessmentLog(goalSettingLog)
 		if errGoalInsertLog != nil {
@@ -192,6 +216,9 @@ func (s *SaveAssessment) SupportiveContactAssessment(req dtos.SupportiveContact,
 		supContactHeader.Name = contact.Name
 		supContactHeader.ContactNumber = contact.ContactNumber
 		supContactHeader.AldRelationShipID = contact.RelationShipID
+
+		supContactHeader.BeforeInsert()
+
 		supportiveContactIns, errSCInsert := s.saveAssessmentDao.SaveSupportiveContact(supContactHeader)
 		if errSCInsert != nil {
 			s.l.Error("SupportiveContactAssessment Error--", errSCInsert)
@@ -204,6 +231,8 @@ func (s *SaveAssessment) SupportiveContactAssessment(req dtos.SupportiveContact,
 		supContactLog.ContactNumber = supContactHeader.ContactNumber
 		supContactLog.AldRelationShipID = supContactHeader.AldRelationShipID
 		supContactLog.UserID = supContactHeader.UserID
+
+		supContactLog.BeforeInsert()
 
 		errSCLog := s.saveAssessmentDao.SaveSupportiveContactLog(supContactLog)
 		if errSCLog != nil {

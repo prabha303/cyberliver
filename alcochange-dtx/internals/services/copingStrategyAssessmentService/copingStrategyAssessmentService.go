@@ -24,8 +24,8 @@ func NewCopingStrategyAssessment(l *log.Logger, dbConn *pg.DB) *CopingStrategyAs
 }
 
 // GetCopingStrategyAssessmentMessage service for logic
-func (cs *CopingStrategyAssessment) GetCopingStrategyAssessmentMessage() (*dtos.CopingStrategyAssessmentResponse, error) {
-	csIns := dtos.CopingStrategyAssessmentResponse{}
+func (cs *CopingStrategyAssessment) GetCopingStrategyAssessmentMessage() (*[]dtos.CopingStrategyAssessmentResponse, error) {
+	copyStrIns := []dtos.CopingStrategyAssessmentResponse{}
 	options := dtos.CopingStrategyAssessmentOption{}
 
 	copingStrategyQuestionResponse, err := cs.copingStrategyAssessmentDao.CopingStrategyAssessmentQuestion()
@@ -36,6 +36,7 @@ func (cs *CopingStrategyAssessment) GetCopingStrategyAssessmentMessage() (*dtos.
 	}
 
 	for _, csQuestion := range copingStrategyQuestionResponse {
+		csIns := dtos.CopingStrategyAssessmentResponse{}
 
 		csIns.ID = csQuestion.ID
 		csIns.Question = csQuestion.Question
@@ -43,7 +44,7 @@ func (cs *CopingStrategyAssessment) GetCopingStrategyAssessmentMessage() (*dtos.
 		csIns.QuestionOptionTypeID = csQuestion.QuestionOptionTypeID
 		csIns.SequenceOrder = csQuestion.SequenceOrder
 
-		csOptionResponse, err := cs.copingStrategyAssessmentDao.CopingStrategyAssessmentOption(csQuestion.ID)
+		csOptionResponse, err := cs.copingStrategyAssessmentDao.CopingStrategyAssessmentOption(csQuestion.QuestionNo)
 		if err != nil {
 			cs.l.Error("GetCopingStrategyAssessmentMessage Error - ", err)
 			sentryaccounts.SentryLogExceptions(err)
@@ -59,7 +60,10 @@ func (cs *CopingStrategyAssessment) GetCopingStrategyAssessmentMessage() (*dtos.
 			options.SequenceOrder = csOption.SequenceOrder
 			csIns.Options = append(csIns.Options, options)
 		}
+
+		copyStrIns = append(copyStrIns, csIns)
+
 	}
 
-	return &csIns, nil
+	return &copyStrIns, nil
 }
