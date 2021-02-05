@@ -37,6 +37,15 @@ type SaveAssessmentDao interface {
 	SaveSupportiveContact(supportiveContactResp models.AldSupportiveContactHeader) (models.AldSupportiveContactHeader, error)
 	DeleteSupportiveContact(userID int64) error
 	SaveSupportiveContactLog(supportiveContactResp models.AldSupportiveContactLog) error
+	IsExistsDrinkHabitAssessment(userID int64, questionID int64) models.AldDrinkHabitAssessmentHeader
+	UpdateDrinkHabitAssessment(drinkAssessmentResp models.AldDrinkHabitAssessmentHeader) error
+	SaveDrinkHabitAssessment(drinkAssessmentResp models.AldDrinkHabitAssessmentHeader) (models.AldDrinkHabitAssessmentHeader, error)
+	SaveDrinkHabitAssessmentLog(drinkAssessmentResp models.AldDrinkHabitAssessmentLog) error
+
+	IsExistsDrinkProfileAssessment(userID int64, drinkID int64) models.AldDrinkProfileHeader
+	UpdateDrinkProfileAssessment(drinkProfileResp models.AldDrinkProfileHeader) error
+	SaveDrinkProfileAssessment(drinkProfileResp models.AldDrinkProfileHeader) (models.AldDrinkProfileHeader, error)
+	SaveDrinkProfileAssessmentLog(drinkProfileResp models.AldDrinkProfileLog) error
 }
 
 func (s *SaveAssessment) IsExistsHealthConditionAssessment(userID int64, questionID int64) models.AldHealthAssessmentHeader {
@@ -226,6 +235,102 @@ func (s *SaveAssessment) SaveSupportiveContactLog(supportiveContactResp models.A
 	}
 
 	dataBytes, _ := json.Marshal(supportiveContactResp)
+	s.l.Debug("User table json : %q", string(dataBytes))
+
+	return nil
+}
+
+func (s *SaveAssessment) IsExistsDrinkHabitAssessment(userID int64, questionID int64) models.AldDrinkHabitAssessmentHeader {
+	assessmentHeader := models.AldDrinkHabitAssessmentHeader{}
+	s.dbConn.Model(&assessmentHeader).Where("user_id = ? AND ald_drink_habit_assessment_question_id = ? ", userID, questionID).Select()
+	return assessmentHeader
+}
+
+func (s *SaveAssessment) UpdateDrinkHabitAssessment(drinkAssessmentResp models.AldDrinkHabitAssessmentHeader) error {
+	_, uptErr := s.dbConn.Model(&drinkAssessmentResp).Column("ald_drink_habit_assessment_option_id", "points", "max_points").Where("id=?", drinkAssessmentResp.ID).Update()
+	if uptErr != nil {
+		s.l.Error("UpdateDrinkHabitAssessment Error--", uptErr)
+		return uptErr
+	}
+
+	dataBytes, _ := json.Marshal(drinkAssessmentResp)
+	s.l.Debug("User table json : %q", string(dataBytes))
+
+	return nil
+}
+
+func (s *SaveAssessment) SaveDrinkHabitAssessment(drinkAssessmentResp models.AldDrinkHabitAssessmentHeader) (models.AldDrinkHabitAssessmentHeader, error) {
+	_, insErr := s.dbConn.Model(&drinkAssessmentResp).Insert()
+
+	if insErr != nil {
+		s.l.Error("SaveDrinkHabitAssessment Error--", insErr)
+		return drinkAssessmentResp, insErr
+	}
+
+	dataBytes, _ := json.Marshal(drinkAssessmentResp)
+	s.l.Debug("User table json : %q", string(dataBytes))
+
+	return drinkAssessmentResp, nil
+}
+
+func (s *SaveAssessment) SaveDrinkHabitAssessmentLog(drinkAssessmentResp models.AldDrinkHabitAssessmentLog) error {
+
+	_, insErr := s.dbConn.Model(&drinkAssessmentResp).Insert()
+
+	if insErr != nil {
+		s.l.Error("SaveDrinkHabitAssessmentLog Error--", insErr)
+		return insErr
+	}
+
+	dataBytes, _ := json.Marshal(drinkAssessmentResp)
+	s.l.Debug("User table json : %q", string(dataBytes))
+
+	return nil
+}
+
+func (s *SaveAssessment) IsExistsDrinkProfileAssessment(userID int64, drinkID int64) models.AldDrinkProfileHeader {
+	assessmentHeader := models.AldDrinkProfileHeader{}
+	s.dbConn.Model(&assessmentHeader).Where("user_id = ? AND drink_id = ? ", userID, drinkID).Select()
+	return assessmentHeader
+}
+
+func (s *SaveAssessment) UpdateDrinkProfileAssessment(drinkAssessmentResp models.AldDrinkProfileHeader) error {
+	_, uptErr := s.dbConn.Model(&drinkAssessmentResp).Column("ald_drink_habit_assessment_option_id", "points", "max_points").Where("id=?", drinkAssessmentResp.ID).Update()
+	if uptErr != nil {
+		s.l.Error("UpdateDrinkProfileAssessment Error--", uptErr)
+		return uptErr
+	}
+
+	dataBytes, _ := json.Marshal(drinkAssessmentResp)
+	s.l.Debug("User table json : %q", string(dataBytes))
+
+	return nil
+}
+
+func (s *SaveAssessment) SaveDrinkProfileAssessment(drinkAssessmentResp models.AldDrinkProfileHeader) (models.AldDrinkProfileHeader, error) {
+	_, insErr := s.dbConn.Model(&drinkAssessmentResp).Insert()
+
+	if insErr != nil {
+		s.l.Error("SaveDrinkProfileAssessment Error--", insErr)
+		return drinkAssessmentResp, insErr
+	}
+
+	dataBytes, _ := json.Marshal(drinkAssessmentResp)
+	s.l.Debug("User table json : %q", string(dataBytes))
+
+	return drinkAssessmentResp, nil
+}
+
+func (s *SaveAssessment) SaveDrinkProfileAssessmentLog(drinkAssessmentResp models.AldDrinkProfileLog) error {
+
+	_, insErr := s.dbConn.Model(&drinkAssessmentResp).Insert()
+
+	if insErr != nil {
+		s.l.Error("SaveDrinkProfileAssessmentLog Error--", insErr)
+		return insErr
+	}
+
+	dataBytes, _ := json.Marshal(drinkAssessmentResp)
 	s.l.Debug("User table json : %q", string(dataBytes))
 
 	return nil
