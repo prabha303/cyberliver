@@ -1,6 +1,8 @@
 package models
 
-import "time"
+import (
+	"time"
+)
 
 type AldDrinkProfileHeader struct {
 	ID             int64         `json:"id"`
