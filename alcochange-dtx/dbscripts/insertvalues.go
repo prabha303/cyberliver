@@ -15,6 +15,194 @@ func InsertValues(db *pg.DB) {
 	createHealthAssesmentQuestionOptions(db)
 	createAuditAssesmentQuestion(db)
 	createAudiAssesmentQuestionOptions(db)
+	// createCountry(db)
+}
+
+func createCountry(db *pg.DB) {
+	countryIns := []models.Country{
+		{
+			Name:              "Austria",
+			Code:              "AT",
+			DialCode:          "+43",
+			CurrencySymbol:    "€",
+			CurrenyName:       "Euro",
+			CurrencyShortCode: "Eur",
+			Timezone:          "BST",
+			IsActive:          true,
+		},
+		{
+			Name:              "Belgium",
+			Code:              "BE",
+			DialCode:          "+32",
+			CurrencySymbol:    "€",
+			CurrenyName:       "Euro",
+			CurrencyShortCode: "Eur",
+			Timezone:          "",
+			IsActive:          true,
+		},
+		{
+			Name:              "Cyprus",
+			Code:              "CY",
+			DialCode:          "+357",
+			CurrencySymbol:    "€",
+			CurrenyName:       "Euro",
+			CurrencyShortCode: "Eur",
+			Timezone:          "",
+			IsActive:          true,
+		},
+		{
+			Name:              "Estonia",
+			Code:              "EE",
+			DialCode:          "+372",
+			CurrencySymbol:    "€",
+			CurrenyName:       "Euro",
+			CurrencyShortCode: "Eur",
+			Timezone:          "",
+			IsActive:          true,
+		},
+		{
+			Name:              "Finland",
+			Code:              "FI",
+			DialCode:          "+358",
+			CurrencySymbol:    "€",
+			CurrenyName:       "Euro",
+			CurrencyShortCode: "Eur",
+			Timezone:          "",
+			IsActive:          true,
+		},
+		{
+			Name:              "France",
+			Code:              "FR",
+			DialCode:          "+33",
+			CurrencySymbol:    "€",
+			CurrenyName:       "Euro",
+			CurrencyShortCode: "Eur",
+			Timezone:          "",
+			IsActive:          true,
+		},
+		{
+			Name:              "French Polynesia",
+			Code:              "PF",
+			DialCode:          "+689",
+			CurrencySymbol:    "€",
+			CurrenyName:       "Euro",
+			CurrencyShortCode: "Eur",
+			Timezone:          "",
+			IsActive:          true,
+		},
+		{
+			Name:              "Germany",
+			Code:              "DE",
+			DialCode:          "+49",
+			CurrencySymbol:    "€",
+			CurrenyName:       "Euro",
+			CurrencyShortCode: "Eur",
+			Timezone:          "",
+			IsActive:          true,
+		},
+		{
+			Name:              "Greece",
+			Code:              "GR",
+			DialCode:          "+30",
+			CurrencySymbol:    "€",
+			CurrenyName:       "Euro",
+			CurrencyShortCode: "Eur",
+			Timezone:          "",
+			IsActive:          true,
+		},
+		{
+			Name:              "Ireland",
+			Code:              "IE",
+			DialCode:          "+353",
+			CurrencySymbol:    "€",
+			CurrenyName:       "Euro",
+			CurrencyShortCode: "Eur",
+			Timezone:          "",
+			IsActive:          true,
+		},
+		{
+			Name:              "Italy",
+			Code:              "IT",
+			DialCode:          "+39",
+			CurrencySymbol:    "€",
+			CurrenyName:       "Euro",
+			CurrencyShortCode: "Eur",
+			Timezone:          "",
+			IsActive:          true,
+		},
+		{
+			Name:              "Luxembourg",
+			Code:              "LU",
+			DialCode:          "+352",
+			CurrencySymbol:    "€",
+			CurrenyName:       "Euro",
+			CurrencyShortCode: "Eur",
+			Timezone:          "",
+			IsActive:          true,
+		},
+		{
+			Name:              "Malta",
+			Code:              "MT",
+			DialCode:          "+356",
+			CurrencySymbol:    "€",
+			CurrenyName:       "Euro",
+			CurrencyShortCode: "Eur",
+			Timezone:          "",
+			IsActive:          true,
+		},
+		{
+			Name:              "Montenegro",
+			Code:              "ME",
+			DialCode:          "+382",
+			CurrencySymbol:    "€",
+			CurrenyName:       "Euro",
+			CurrencyShortCode: "Eur",
+			Timezone:          "",
+			IsActive:          true,
+		},
+		{
+			Name:              "Portugal",
+			Code:              "PT",
+			DialCode:          "+351",
+			CurrencySymbol:    "€",
+			CurrenyName:       "Euro",
+			CurrencyShortCode: "Eur",
+			Timezone:          "",
+			IsActive:          true,
+		},
+		{
+			Name:              "Slovenia",
+			Code:              "SI",
+			DialCode:          "+386",
+			CurrencySymbol:    "€",
+			CurrenyName:       "Euro",
+			CurrencyShortCode: "Eur",
+			Timezone:          "",
+			IsActive:          true,
+		},
+		{
+			Name:              "Spain",
+			Code:              "ES",
+			DialCode:          "+34",
+			CurrencySymbol:    "€",
+			CurrenyName:       "Euro",
+			CurrencyShortCode: "Eur",
+			Timezone:          "",
+			IsActive:          true,
+		},
+	}
+	for _, rowData := range countryIns {
+		counIns := &models.Country{}
+		db.Model(counIns).Where("LOWER(timezone) = LOWER(?)", rowData.Timezone).Select()
+		if counIns.ID == 0 {
+			rowData.BeforeInsert(rowData.Timezone)
+			if _, err := db.Model(&rowData).Insert(); err != nil {
+				log.Println("Error to insert default countries.", err.Error())
+				return
+			}
+			log.Println("Countries created successfully...")
+		}
+	}
 }
 
 func createUserType(db *pg.DB) {

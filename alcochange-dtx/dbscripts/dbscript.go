@@ -51,6 +51,8 @@ func getModels() []interface{} {
 		&models.AldAuditAssessmentLog{},
 		&models.AldHealthAssessmentHeader{},
 		&models.AldHealthAssessmentLog{},
+		&models.DrinkCategory{},
+		&models.QuantityUnit{},
 	}
 }
 

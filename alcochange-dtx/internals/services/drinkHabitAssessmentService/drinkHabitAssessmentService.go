@@ -64,10 +64,51 @@ func (da *DrinkHabitAssessment) GetDrinkHabitAssessmentMessage() (*dtos.DrinkHab
 
 	}
 
-	asd := []dtos.DrinkProfiles{}
+	drinkProfileIns := []dtos.DrinkProfiles{}
+
+	drinkProfileResponse, dPErr := da.drinkHabitAssessmentDao.GetDrinkProfile()
+	if err != nil {
+		da.l.Error("GetDrinkHabitAssessmentMessage Error - ", dPErr)
+		sentryaccounts.SentryLogExceptions(dPErr)
+		return nil, dPErr
+	}
+
+	for _, drinkPro := range drinkProfileResponse {
+		drinkProfile := dtos.DrinkProfiles{}
+		drinkProfile.ID = drinkPro.ID
+		drinkProfile.DrinkID = drinkPro.DrinkID
+		drinkProfile.Name = drinkPro.Name
+		drinkProfile.QuantityText = drinkPro.QuantityUnit.QuantityText
+		drinkProfile.QuantityUnitID = drinkPro.QuantityUnitID
+		drinkProfile.Strength = drinkPro.Strength
+		drinkProfile.Cost = drinkPro.QuantityUnit.Cost
+
+		drinkProfileIns = append(drinkProfileIns, drinkProfile)
+	}
+
+	// for testing purpose hardcoded id is 1
+	var id int64
+	id = 1
+
+	userAccessIns, uaErr := da.drinkHabitAssessmentDao.GetUserAccess(id)
+	if err != nil {
+		da.l.Error("GetDrinkHabitAssessmentMessage Error - ", uaErr)
+		sentryaccounts.SentryLogExceptions(uaErr)
+		return nil, uaErr
+	}
+
+	countryIns, cErr := da.drinkHabitAssessmentDao.GetCountry(userAccessIns.Timezone)
+	if err != nil {
+		da.l.Error("GetDrinkHabitAssessmentMessage Error - ", cErr)
+		sentryaccounts.SentryLogExceptions(cErr)
+		return nil, cErr
+	}
 
 	drinkHabitResponse := dtos.DrinkHabitAssessmentResponse{
-		DrinkProfiles:       asd,
+		CountryID:           countryIns.ID,
+		CurrencySymbol:      countryIns.CurrencySymbol,
+		CurrenyName:         countryIns.CurrenyName,
+		DrinkProfiles:       drinkProfileIns,
 		DrinkHabitQuestions: drinkHabit,
 	}
 

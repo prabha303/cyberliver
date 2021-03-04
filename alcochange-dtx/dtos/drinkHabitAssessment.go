@@ -2,14 +2,21 @@ package dtos
 
 // DrinkHabitAssessmentResponse Response struct send to client
 type DrinkHabitAssessmentResponse struct {
+	CountryID           int64                 `json:"countryId"`
+	CurrencySymbol      string                `json:"currencySymbol"`
+	CurrenyName         string                `json:"currenyName"`
 	DrinkProfiles       []DrinkProfiles       `json:"drinkProfiles"`
 	DrinkHabitQuestions []DrinkHabitQuestions `json:"drinkHabitQuestions"`
 }
 
 type DrinkProfiles struct {
-	DrinkID       int64  `json:"drinkId"`
-	Name          string `json:"name"`
-	SequenceOrder int    `json:"sequenceOrder"`
+	ID             int64  `json:"id"`
+	DrinkID        int    `json:"drinkId"`
+	Name           string `json:"name"`
+	QuantityUnitID int64  `json:"quantityUnitId"`
+	QuantityText   string `json:"quantityText"`
+	Strength       string `json:"strength"`
+	Cost           int    `json:"cost"`
 }
 
 type DrinkHabitQuestions struct {

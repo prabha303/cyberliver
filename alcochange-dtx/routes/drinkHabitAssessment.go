@@ -14,6 +14,10 @@ func drinkHabitAssessment(router *httprouter.Router) {
 
 // GetDrinkHabitAssessment func to send the Drink Habit Assessment to the client
 func GetDrinkHabitAssessment(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	// userID, isErr := controllers.GetIDFromParams(w, r, "id")
+	// if !isErr {
+	// 	return
+	// }
 	rd := logAndGetContext(w, r)
 	wl := drinkHabitAssessmentService.NewDrinkHabitAssessment(rd.l, rd.dbConn)
 	res, errW := wl.GetDrinkHabitAssessmentMessage()

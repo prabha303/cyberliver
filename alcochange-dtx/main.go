@@ -59,7 +59,6 @@ func main() {
 	// if conf.ServerFlag {
 	// 	conf.InitateServerConfigurations()
 	// }
-
 	dbcon.Connect()
 	defer dbcon.Close()
 
